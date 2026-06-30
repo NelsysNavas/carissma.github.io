@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carissma - Panel de Administración</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Modulares (complementan a Tailwind) -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="flex min-h-screen">
+        <aside id="sidebar" class="sidebar bg-zinc-900 text-white w-64 min-h-screen flex flex-col fixed left-0 top-0 z-30">
+            <div class="p-6 border-b border-zinc-800">
+                <a href="index.html" target="_blank" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+                    <img src="images/favicon.png" alt="Logo" class="w-10 h-10 rounded-full object-cover">
+                    <div class="logo-text">
+                        <h1 class="serif-font text-xl font-bold text-orange-400">Carissma</h1>
+                        <p class="text-[10px] text-zinc-500 uppercase tracking-wider">Admin Panel</p>
+                    </div>
+                </a>
+                <a href="index.html" target="_blank" class="flex items-center gap-2 text-zinc-500 hover:text-orange-400 text-[11px] transition mt-3 pl-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    Ver Tienda
+                </a>
+            </div>
+            <nav class="flex-1 py-4">
+                <ul class="space-y-1 px-3">
+                    <li><button onclick="showSection('dashboard')" class="nav-item active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg><span>Dashboard</span></button></li>
+                    <li><button onclick="showSection('productos')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg><span>Productos</span></button></li>
+                    <li><button onclick="showSection('categorias-config')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg><span>Categorías</span></button></li>
+                    <li><button onclick="showSection('pedidos')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg><span>Pedidos</span></button></li>
+                    <li><button onclick="showSection('clientes')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span>Clientes</span></button></li>
+                    <li><button onclick="showSection('configuracion')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg><span>Configuración</span></button></li>
+                    <li><button onclick="showSection('afiliados-config')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg><span class="sidebar-text">Afiliados</span></button></li>
+                    <li><button onclick="showSection('emailjs-config')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg><span class="sidebar-text">EmailJS</span><span id="emailjs-status-dot" class="ml-auto w-2 h-2 rounded-full bg-green-500"></span></button></li>
+                    <li><button onclick="showSection('social-config')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/></svg><span class="sidebar-text">Redes Sociales</span></button></li>
+                    <li><button onclick="showSection('nosotros-config')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span class="sidebar-text">Sobre Nosotros</span></button></li>
+                    <li><button onclick="showSection('seo-config')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg><span class="sidebar-text">Analytics & SEO</span></button></li>
+                    <li><button onclick="showSection('importar-exportar')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg><span class="sidebar-text">Importar / Exportar</span></button></li>
+                    <li><button onclick="showSection('contenido-config')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><span class="sidebar-text">Gestión de Contenido</span></button></li>
+                    <li><button onclick="showSection('usuarios-config')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="sidebar-text">Usuarios</span></button></li>
+                    <li><button onclick="showSection('firebase-config')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://wwwwww.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg><span class="sidebar-text">Firebase</span><span id="firebase-status-dot" class="ml-auto w-2 h-2 rounded-full bg-yellow-500"></span></button></li>
+                    <li><button onclick="showSection('cloudinary-config')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span class="sidebar-text">Cloudinary</span><span id="cloudinary-status-dot" class="ml-auto w-2 h-2 rounded-full bg-yellow-500"></span></button></li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t border-zinc-800 mt-auto">
+                <div class="flex items-center gap-2 mb-3">
+                    <div id="user-avatar" class="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">N</div>
+                    <div class="flex-1 min-w-0">
+                        <p id="user-name" class="text-xs text-white font-semibold truncate">Cargando...</p>
+                        <p id="user-role" class="text-[10px] text-zinc-500 truncate">...</p>
+                    </div>
+                </div>
+                <button onclick="logoutDashboard()" class="w-full flex items-center justify-center gap-2 bg-zinc-800 hover:bg-red-600 text-zinc-400 hover:text-white px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <main class="flex-1 ml-64 p-8">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 id="page-title" class="serif-font text-2xl font-bold text-gray-900">Dashboard</h1>
+                    <p id="page-subtitle" class="text-gray-500 text-sm mt-1">Resumen general de tu tienda</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-gray-200 transition cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <img src="images/favicon.png" alt="Admin" class="w-9 h-9 rounded-full object-cover border-2 border-orange-200">
+                        <div class="text-right">
+                            <p class="text-sm font-semibold text-gray-900">Nelsys Navas</p>
+                            <p class="text-[10px] text-gray-500">Administrador</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DASHBOARD SECTION -->
+            <div id="section-dashboard" class="content-section">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="stat-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Ventas Totales</p>
+                                <p class="text-2xl font-bold text-gray-900 mt-2" id="stat-sales">$0.00</p>
+                                <p class="text-[10px] text-green-600 mt-1">+12% este mes</p>
+                            </div>
+                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Pedidos</p>
+                                <p class="text-2xl font-bold text-gray-900 mt-2" id="stat-orders">0</p>
+                                <p class="text-[10px] text-orange-600 mt-1" id="stat-pending">0 pendientes</p>
+                            </div>
+                            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Productos</p>
+                                <p class="text-2xl font-bold text-gray-900 mt-2" id="stat-products">0</p>
+                                <p class="text-[10px] text-blue-600 mt-1">En catálogo</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Clientes</p>
+                                <p class="text-2xl font-bold text-gray-900 mt-2" id="stat-clients">0</p>
+                                <p class="text-[10px] text-purple-600 mt-1">Registrados</p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-bold text-gray-900">Ventas Recientes</h3>
+                        </div>
+                        <div class="h-64 flex items-end justify-between gap-2" id="sales-chart"></div>
+                        <div class="flex justify-between mt-4 text-[10px] text-gray-400">
+                            <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-gray-900">Pedidos Recientes</h3>
+                            <button onclick="showSection('pedidos')" class="text-orange-600 text-xs font-semibold hover:underline cursor-pointer">Ver todos</button>
+                        </div>
+                        <div id="recent-orders" class="space-y-3">
+                            <p class="text-gray-400 text-sm text-center py-8">No hay pedidos aún</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-gray-900">Productos Más Vendidos</h3>
+                        <button onclick="showSection('productos')" class="text-orange-600 text-xs font-semibold hover:underline cursor-pointer">Ver todos</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead><tr class="text-left text-[10px] font-bold text-gray-400 uppercase tracking-wider border-b border-gray-100"><th class="pb-3">Producto</th><th class="pb-3">Categoría</th><th class="pb-3">Precio</th><th class="pb-3">Vendidos</th><th class="pb-3">Ingresos</th></tr></thead>
+                            <tbody id="top-products" class="divide-y divide-gray-50"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORIAS SECTION -->
+            <div id="section-categorias-config" class="content-section hidden">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-sm max-w-4xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-xl font-bold text-white tracking-wider uppercase">Gestión de Categorías</h2>
+                            <p class="text-zinc-400 text-sm mt-1">Crea, edita y administra las categorías de tu tienda.</p>
+                        </div>
+                        <button id="btn-nueva-categoria" onclick="mostrarFormCategoria()" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            Nueva Categoría
+                        </button>
+                    </div>
+
+                    <div id="form-categoria" class="hidden bg-zinc-800 border border-zinc-700 rounded-xl p-5 mb-6">
+                        <h3 id="categoria-form-titulo" class="text-sm font-bold text-orange-400 uppercase tracking-wider mb-4">Nueva Categoría</h3>
+                        <div class="space-y-3">
+                            <input type="hidden" id="categoria-id">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Nombre *</label>
+                                    <input type="text" id="categoria-nombre" required class="w-full px-3 py-2 rounded-lg border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="Ej: Joyería Artesanal">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Slug (URL)</label>
+                                    <input type="text" id="categoria-slug" class="w-full px-3 py-2 rounded-lg border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="joyeria-artesanal">
+                                    <p class="text-[10px] text-zinc-500 mt-1">Se genera automáticamente del nombre.</p>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Descripción</label>
+                                <textarea id="categoria-descripcion" rows="2" class="w-full px-3 py-2 rounded-lg border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500 resize-none" placeholder="Descripción breve de la categoría"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Imagen (Cloudinary)</label>
+                                <input type="file" id="categoria-imagen-upload" accept="image/jpeg,image/png,image/webp" class="hidden" onchange="subirImagenCategoria(event)">
+                                <input type="hidden" id="categoria-imagen">
+                                <div class="flex gap-3 items-center">
+                                    <label for="categoria-imagen-upload" class="flex-1 px-3 py-2 rounded-lg border border-dashed border-zinc-700 bg-zinc-900 text-zinc-400 text-sm text-center cursor-pointer hover:border-orange-500 hover:text-orange-400 transition">
+                                        📤 Subir imagen
+                                    </label>
+                                    <img id="categoria-imagen-preview" src="" alt="Preview" class="w-16 h-16 rounded-lg object-cover border border-zinc-700">
+                                </div>
+                                <div id="categoria-upload-progress" class="hidden mt-2">
+                                    <div class="flex items-center gap-2 text-xs text-zinc-400">
+                                        <div class="animate-spin w-3 h-3 border-2 border-orange-500 border-t-transparent rounded-full"></div>
+                                        <span>Subiendo a Cloudinary...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 pt-2">
+                                <input type="checkbox" id="categoria-activo" checked class="w-4 h-4 text-orange-600 border-zinc-600 rounded focus:ring-orange-500">
+                                <label for="categoria-activo" class="text-sm text-zinc-300 cursor-pointer">Categoría activa (visible en la tienda)</label>
+                            </div>
+                            <div class="flex justify-end gap-2 pt-3 border-t border-zinc-700 mt-3">
+                                <button type="button" onclick="cancelarFormCategoria()" class="bg-zinc-700 hover:bg-zinc-600 text-white px-4 py-2 rounded-lg text-xs font-bold uppercase transition">Cancelar</button>
+                                <button type="button" onclick="guardarCategoria()" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg text-xs font-bold uppercase transition shadow-md">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="lista-categorias" class="space-y-3"></div>
+                    <div id="categorias-message" class="mt-4 hidden"></div>
+                </div>
+            </div>
+
+            <!-- PRODUCTOS SECTION -->
+            <div id="section-productos" class="content-section hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex gap-2">
+                        <button onclick="filterProducts('todos')" id="fp-todos" class="px-4 py-2 rounded-lg text-xs font-semibold bg-orange-600 text-white cursor-pointer">Todos</button>
+                        <button onclick="filterProducts('Hecho a mano')" id="fp-handmade" class="px-4 py-2 rounded-lg text-xs font-semibold bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 cursor-pointer">Hecho a mano</button>
+                        <button onclick="filterProducts('Curado')" id="fp-curated" class="px-4 py-2 rounded-lg text-xs font-semibold bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 cursor-pointer">Curado</button>
+                    </div>
+                    <button onclick="openProductModal()" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md cursor-pointer flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        Agregar Producto
+                    </button>
+                </div>
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead><tr class="text-left text-[10px] font-bold text-gray-400 uppercase tracking-wider bg-gray-50"><th class="p-4">Producto</th><th class="p-4">Categoría</th><th class="p-4">Precio</th><th class="p-4">Estado</th><th class="p-4 text-right">Acciones</th></tr></thead>
+                            <tbody id="products-table" class="divide-y divide-gray-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PEDIDOS SECTION -->
+            <div id="section-pedidos" class="content-section hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex gap-2">
+                        <button onclick="filterOrders('todos')" id="fo-todos" class="px-4 py-2 rounded-lg text-xs font-semibold bg-orange-600 text-white cursor-pointer">Todos</button>
+                        <button onclick="filterOrders('pendiente')" id="fo-pendiente" class="px-4 py-2 rounded-lg text-xs font-semibold bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 cursor-pointer">Pendientes</button>
+                        <button onclick="filterOrders('completado')" id="fo-completado" class="px-4 py-2 rounded-lg text-xs font-semibold bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 cursor-pointer">Completados</button>
+                        <button onclick="filterOrders('cancelado')" id="fo-cancelado" class="px-4 py-2 rounded-lg text-xs font-semibold bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 cursor-pointer">Cancelados</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead><tr class="text-left text-[10px] font-bold text-gray-400 uppercase tracking-wider bg-gray-50"><th class="p-4">Pedido</th><th class="p-4">Cliente</th><th class="p-4">Productos</th><th class="p-4">Total</th><th class="p-4">Método Pago</th><th class="p-4">Estado</th><th class="p-4 text-right">Acciones</th></tr></thead>
+                            <tbody id="orders-table" class="divide-y divide-gray-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLIENTES SECTION -->
+            <div id="section-clientes" class="content-section hidden">
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead><tr class="text-left text-[10px] font-bold text-gray-400 uppercase tracking-wider bg-gray-50"><th class="p-4">Cliente</th><th class="p-4">Email</th><th class="p-4">Teléfono</th><th class="p-4">Pedidos</th><th class="p-4">Total Gastado</th></tr></thead>
+                            <tbody id="clients-table" class="divide-y divide-gray-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EMAILJS CONFIG SECTION -->
+            <div id="section-emailjs-config" class="content-section hidden">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-sm max-w-3xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="text-xl font-bold text-white tracking-wider uppercase">Configurar EmailJS</h2>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <span id="emailjs-status" class="text-[10px] font-bold text-green-500 uppercase tracking-wider">Activo</span>
+                            <button type="button" onclick="toggleEmailJSActivo()" class="toggle-switch active" id="emailjs-toggle">
+                                <span class="toggle-knob"></span>
+                            </button>
+                        </label>
+                    </div>
+                    <p class="text-zinc-400 text-sm mb-6">Conecta el formulario de contacto de tu tienda con EmailJS para recibir mensajes directamente en tu correo.</p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Public Key</label>
+                            <input type="text" id="emailjs-publickey" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="XZ8jsCEsZ_cMUJLLk">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Service ID</label>
+                                <input type="text" id="emailjs-serviceid" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="service_xxxxx">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Template ID</label>
+                                <input type="text" id="emailjs-templateid" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="template_xxxxx">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Email de Destino</label>
+                            <input type="email" id="emailjs-destino" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="nelsysnavas.music@gmail.com">
+                            <p class="text-[10px] text-zinc-500 mt-1">Email donde recibirás los mensajes del formulario (To Email en EmailJS).</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 pt-4 mt-4 border-t border-zinc-800">
+                        <button onclick="testEmailJS()" class="bg-zinc-700 hover:bg-zinc-600 text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition cursor-pointer flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            Enviar Email de Prueba
+                        </button>
+                        <button onclick="guardarConfiguracionEmailJS()" class="flex-1 bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md cursor-pointer">Guardar Configuración</button>
+                    </div>
+
+                    <div id="emailjs-message" class="mt-4 hidden"></div>
+
+                    <div class="bg-zinc-800 p-4 rounded-xl border border-zinc-700 mt-6">
+                        <p class="text-xs text-zinc-300 leading-relaxed">
+                            <strong class="text-orange-400">📊 Plan gratuito EmailJS:</strong> Tienes <strong>200 emails/mes</strong> gratis. Para más volumen, considera actualizar al plan de pago.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GESTIÓN DE CONTENIDO SECTION -->
+            <div id="section-contenido-config" class="content-section hidden">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-sm max-w-4xl">
+                    <h2 class="text-xl font-bold text-white tracking-wider uppercase mb-2">Gestión de Contenido</h2>
+                    <p class="text-zinc-400 text-sm mb-6">Edita el contenido de las páginas legales. Se actualiza en tiempo real en la tienda.</p>
+
+                    <div class="flex gap-2 mb-6 border-b border-zinc-700 pb-3">
+                        <button id="tab-contenido-terminos" onclick="cambiarTabContenido('terminos')" class="px-4 py-2 rounded-lg text-sm font-semibold bg-orange-600 text-white cursor-pointer">Términos</button>
+                        <button id="tab-contenido-privacidad" onclick="cambiarTabContenido('privacidad')" class="px-4 py-2 rounded-lg text-sm font-semibold text-zinc-400 hover:text-white cursor-pointer">Privacidad</button>
+                        <button id="tab-contenido-devoluciones" onclick="cambiarTabContenido('devoluciones')" class="px-4 py-2 rounded-lg text-sm font-semibold text-zinc-400 hover:text-white cursor-pointer">Devoluciones</button>
+                    </div>
+
+                    <!-- TÉRMINOS -->
+                    <div id="seccion-contenido-terminos" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Título de Página</label>
+                                <input type="text" id="contenido-terminos-titulo" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Última Actualización</label>
+                                <input type="text" id="contenido-terminos-fecha" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="Junio 2026">
+                            </div>
+                        </div>
+                        <div id="secciones-contenido-terminos" class="space-y-3"></div>
+                        <button onclick="agregarSeccionContenido()" class="w-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-2 border-dashed border-zinc-700 px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition">+ Agregar Nueva Sección</button>
+                    </div>
+
+                    <!-- PRIVACIDAD -->
+                    <div id="seccion-contenido-privacidad" class="space-y-4 hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Título de Página</label>
+                                <input type="text" id="contenido-privacidad-titulo" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Última Actualización</label>
+                                <input type="text" id="contenido-privacidad-fecha" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="Junio 2026">
+                            </div>
+                        </div>
+                        <div id="secciones-contenido-privacidad" class="space-y-3"></div>
+                        <button onclick="agregarSeccionContenido()" class="w-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-2 border-dashed border-zinc-700 px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition">+ Agregar Nueva Sección</button>
+                    </div>
+
+                    <!-- DEVOLUCIONES -->
+                    <div id="seccion-contenido-devoluciones" class="space-y-4 hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Título de Página</label>
+                                <input type="text" id="contenido-devoluciones-titulo" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Última Actualización</label>
+                                <input type="text" id="contenido-devoluciones-fecha" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="Junio 2026">
+                            </div>
+                        </div>
+                        <div id="secciones-contenido-devoluciones" class="space-y-3"></div>
+                        <button onclick="agregarSeccionContenido()" class="w-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-2 border-dashed border-zinc-700 px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition">+ Agregar Nueva Sección</button>
+                    </div>
+
+                    <button onclick="guardarConfiguracionContenido()" class="mt-6 w-full bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md">Guardar Todo</button>
+                    <div id="contenido-message" class="mt-4 hidden"></div>
+                </div>
+            </div>
+
+            <!-- IMPORTAR / EXPORTAR SECTION -->
+            <div id="section-importar-exportar" class="content-section hidden">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-sm max-w-3xl">
+                    <h2 class="text-xl font-bold text-white tracking-wider uppercase mb-6">Importar / Exportar Datos</h2>
+
+                    <div class="bg-zinc-800 p-4 rounded-xl border border-zinc-700 mb-6">
+                        <p class="text-sm font-semibold text-orange-400 mb-3">¿Cómo funciona?</p>
+                        <p class="text-xs text-zinc-400 mb-3">Este módulo te permite <strong class="text-white">respaldar y restaurar</strong> todos los datos de tu tienda (productos, categorías, contenido, redes sociales) mediante un archivo JSON.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                            <div class="bg-zinc-900 p-3 rounded-lg border border-zinc-700">
+                                <p class="text-[10px] font-bold text-green-500 uppercase tracking-wider mb-2">✓ Se exporta:</p>
+                                <ul class="text-[11px] text-zinc-400 space-y-1">
+                                    <li>• Productos (título, precio, descripción, SKU, estado)</li>
+                                    <li>• Categorías (se infieren de los productos)</li>
+                                    <li>• Contenido (Sobre nosotros, Ubicación, páginas legales)</li>
+                                    <li>• Configuración de Firebase</li>
+                                    <li>• Credenciales de admin</li>
+                                    <li>• Redes sociales</li>
+                                </ul>
+                            </div>
+                            <div class="bg-zinc-900 p-3 rounded-lg border border-zinc-700">
+                                <p class="text-[10px] font-bold text-red-400 uppercase tracking-wider mb-2">✗ No se exporta:</p>
+                                <ul class="text-[11px] text-zinc-400 space-y-1">
+                                    <li>• Imágenes (se quedan en Cloudinary)</li>
+                                </ul>
+                                <p class="text-[10px] text-zinc-500 italic mt-2">Las URLs de las imágenes sí se incluyen pero las imágenes físicas no.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EXPORTAR -->
+                    <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700 mb-4">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center text-xl">⬇</div>
+                            <div>
+                                <h3 class="text-base font-bold text-white">Exportar Datos</h3>
+                                <p class="text-[10px] text-zinc-400">Descarga un archivo .json con todos los datos de tu tienda</p>
+                            </div>
+                        </div>
+                        <button onclick="exportarDatosJSON()" class="w-full bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            Exportar Todo a JSON
+                        </button>
+                    </div>
+
+                    <!-- IMPORTAR -->
+                    <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-xl">⬆</div>
+                            <div>
+                                <h3 class="text-base font-bold text-white">Importar Datos</h3>
+                                <p class="text-[10px] text-zinc-400">Carga un archivo .json para restaurar o agregar datos</p>
+                            </div>
+                        </div>
+                        <div id="import-drop-zone" class="border-2 border-dashed border-zinc-600 rounded-xl p-8 text-center cursor-pointer hover:border-orange-500 transition bg-zinc-900">
+                            <input type="file" id="import-file-input" accept=".json" class="hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-zinc-500 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <p class="text-sm text-zinc-300">Arrastra un archivo .json aquí o haz clic para seleccionar</p>
+                            <p class="text-[10px] text-zinc-500 mt-1">El archivo será validado antes de importar</p>
+                        </div>
+                    </div>
+
+                    <div id="importar-message" class="mt-4 hidden"></div>
+                </div>
+            </div>
+
+            <!-- ANALYTICS & SEO CONFIG SECTION -->
+            <div id="section-seo-config" class="content-section hidden">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-sm max-w-3xl">
+                    <h2 class="text-xl font-bold text-white tracking-wider uppercase mb-2">Analytics & SEO</h2>
+                    <p class="text-zinc-400 text-sm mb-6">Conecta tu tienda con servicios de analítica, búsqueda y publicidad. Los scripts se inyectan automáticamente en el front.</p>
+
+                    <div class="bg-zinc-800 p-4 rounded-xl border border-zinc-700 mb-4">
+                        <p class="text-sm font-semibold text-orange-400">¿Para qué sirve esto?</p>
+                        <p class="text-xs text-zinc-400 mt-1 leading-relaxed">
+                            <strong class="text-zinc-300">Google Analytics:</strong> Para medir visitas y comportamiento de usuarios.
+                            <strong class="text-zinc-300">Google Search Console:</strong> Para monitorear tu posicionamiento en Google.
+                            <strong class="text-zinc-300">Meta Pixel (Facebook):</strong> Para trackear conversiones y crear audiencias para anuncios.
+                        </p>
+                    </div>
+
+                    <!-- GOOGLE ANALYTICS -->
+                    <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700 mb-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 class="text-sm font-bold text-orange-400">📊 Google Analytics</h3>
+                                <p class="text-[10px] text-zinc-500">Mide tus visitas y el comportamiento de tus usuarios</p>
+                            </div>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <span id="seo-googleAnalytics-status" class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Inactivo</span>
+                                <button type="button" onclick="toggleSEOActivo('googleAnalytics')" class="toggle-switch" id="seo-googleAnalytics-toggle">
+                                    <span class="toggle-knob"></span>
+                                </button>
+                            </label>
+                        </div>
+                        <div id="seo-googleAnalytics-content" class="space-y-3 opacity-40 pointer-events-none">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">🆔 ID de Medición (GA4)</label>
+                                <input type="text" id="seo-ga-id" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="G-XXXXXXXXXX">
+                                <p class="text-[10px] text-zinc-500 mt-1">Formato: G-XXXXXXXXXX. Lo encuentras en Admin > Flujos de datos > ID de medición.</p>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">💻 Código Completo (Opcional)</label>
+                                <textarea id="seo-ga-codigo" rows="4" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500 font-mono text-xs" placeholder="<script async src=&quot;https://www.googletagmanager.com/gtag/js?id=G-XXXXX&quot;></script>&#10;<script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXXX');</script>"></textarea>
+                                <p class="text-[10px] text-zinc-500 mt-1">Si pegas el código completo, este tendrá prioridad sobre el ID de arriba.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GOOGLE SEARCH CONSOLE -->
+                    <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700 mb-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 class="text-sm font-bold text-orange-400">🔍 Google Search Console</h3>
+                                <p class="text-[10px] text-zinc-500">Verifica tu sitio en Google y monitorea el SEO</p>
+                            </div>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <span id="seo-searchConsole-status" class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Inactivo</span>
+                                <button type="button" onclick="toggleSEOActivo('searchConsole')" class="toggle-switch" id="seo-searchConsole-toggle">
+                                    <span class="toggle-knob"></span>
+                                </button>
+                            </label>
+                        </div>
+                        <div id="seo-searchConsole-content" class="space-y-3 opacity-40 pointer-events-none">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">🏷️ Código de Verificación</label>
+                                <input type="text" id="seo-sc-content" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxx">
+                                <p class="text-[10px] text-zinc-500 mt-1">Pega solo el valor del atributo <code>content="..."</code> del meta tag de verificación HTML.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- META PIXEL -->
+                    <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700 mb-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 class="text-sm font-bold text-orange-400">📘 Meta Pixel (Facebook)</h3>
+                                <p class="text-[10px] text-zinc-500">Trackea conversiones y crea audiencias para anuncios</p>
+                            </div>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <span id="seo-metaPixel-status" class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Inactivo</span>
+                                <button type="button" onclick="toggleSEOActivo('metaPixel')" class="toggle-switch" id="seo-metaPixel-toggle">
+                                    <span class="toggle-knob"></span>
+                                </button>
+                            </label>
+                        </div>
+                        <div id="seo-metaPixel-content" class="space-y-3 opacity-40 pointer-events-none">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">🆔 ID del Meta Pixel</label>
+                                <input type="text" id="seo-mp-pixel" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="123456789012345">
+                                <p class="text-[10px] text-zinc-500 mt-1">Pixel ID numérico de 15-16 dígitos. Lo encuentras en Events Manager > Data Sources.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-4 mt-4 border-t border-zinc-800">
+                        <button onclick="guardarConfiguracionSEO()" class="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md cursor-pointer">Guardar Configuración</button>
+                    </div>
+
+                    <div id="seo-message" class="mt-4 hidden"></div>
+                </div>
+            </div>
+
+            <!-- SOBRE NOSOTROS CONFIG SECTION -->
+            <div id="section-nosotros-config" class="content-section hidden">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-sm max-w-4xl">
+                    <h2 class="text-xl font-bold text-white tracking-wider uppercase mb-2">Configurar Sobre Nosotros</h2>
+                    <p class="text-zinc-400 text-sm mb-6">Edita el contenido de la sección "Sobre Nosotros" que se muestra en el front de tu tienda.</p>
+
+                    <div class="space-y-6">
+                        <!-- Imagen -->
+                        <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700">
+                            <h3 class="text-sm font-bold text-orange-400 uppercase tracking-wider mb-4">📷 Imagen Principal</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Subir nueva imagen</label>
+                                    <input type="file" id="nosotros-imagen-upload" accept="image/jpeg,image/png,image/webp" class="hidden" onchange="subirImagenNosotros(event)">
+                                    <label for="nosotros-imagen-upload" class="block w-full px-4 py-3 rounded-xl border-2 border-dashed border-zinc-700 bg-zinc-900 text-white text-sm text-center cursor-pointer hover:border-orange-500 transition">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-1 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                                        Click para subir imagen
+                                    </label>
+                                    <div id="nosotros-upload-progress" class="hidden mt-2">
+                                        <div class="flex items-center gap-2 text-xs text-zinc-400">
+                                            <div class="animate-spin w-3 h-3 border-2 border-orange-500 border-t-transparent rounded-full"></div>
+                                            <span>Subiendo a Cloudinary...</span>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="nosotros-imagen">
+
+                                    <!-- Tips de tamaño -->
+                                    <div class="mt-4 p-4 bg-zinc-900 border border-zinc-700 rounded-lg">
+                                        <p class="text-sm font-bold text-orange-400 uppercase tracking-wider mb-3">📐 Medidas Recomendadas</p>
+                                        <ul class="text-xs text-zinc-300 space-y-2 leading-relaxed">
+                                            <li><strong class="text-white">Tamaño ideal:</strong> 800 × 1000 px (ratio 4:5 vertical)</li>
+                                            <li><strong class="text-white">Tamaño mínimo:</strong> 600 × 750 px</li>
+                                            <li><strong class="text-white">Formato:</strong> JPG, PNG o WebP</li>
+                                            <li><strong class="text-white">Peso máximo:</strong> 5 MB</li>
+                                            <li><strong class="text-white">Orientación:</strong> Vertical o cuadrada</li>
+                                            <li class="pt-2 text-orange-300 italic">💡 La imagen se muestra con object-cover, así que se recortará al centro si la proporción no coincide.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Vista previa actual</label>
+                                    <img id="nosotros-imagen-preview" src="" alt="Preview" class="w-full h-48 object-cover rounded-xl border border-zinc-700">
+                                    <p class="text-[10px] text-zinc-500 mt-2 text-center">Como se verá en el front</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Etiqueta y Título -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700">
+                                <label class="block text-[10px] font-bold text-orange-400 uppercase tracking-wider mb-2">🏷️ Etiqueta Naranja (Tag superior)</label>
+                                <input type="text" id="nosotros-etiqueta" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="ESENCIA & ALMA">
+                                <p class="text-[10px] text-zinc-500 mt-1">Texto naranja pequeño arriba del título. Ejemplo: ESENCIA & ALMA</p>
+                            </div>
+                            <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700">
+                                <label class="block text-[10px] font-bold text-orange-400 uppercase tracking-wider mb-2">📝 Título Principal</label>
+                                <input type="text" id="nosotros-titulo" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="Sobre Nosotros">
+                                <p class="text-[10px] text-zinc-500 mt-1">Título grande con línea naranja debajo.</p>
+                            </div>
+                        </div>
+
+                        <!-- Editor de párrafo -->
+                        <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700">
+                            <label class="block text-[10px] font-bold text-orange-400 uppercase tracking-wider mb-2">📄 Párrafo (Editor Enriquecido)</label>
+
+                            <div class="bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden">
+                                <div class="flex flex-wrap gap-1 p-2 border-b border-zinc-700 bg-zinc-800">
+                                    <button type="button" onclick="formatText('bold')" title="Negrita" class="px-3 py-1.5 rounded text-white hover:bg-zinc-700 text-sm font-bold">B</button>
+                                    <button type="button" onclick="formatText('italic')" title="Cursiva" class="px-3 py-1.5 rounded text-white hover:bg-zinc-700 text-sm italic">I</button>
+                                    <button type="button" onclick="formatText('underline')" title="Subrayado" class="px-3 py-1.5 rounded text-white hover:bg-zinc-700 text-sm underline">U</button>
+                                    <div class="w-px bg-zinc-700 mx-1"></div>
+                                    <button type="button" onclick="formatText('justifyLeft')" title="Alinear izquierda" class="px-3 py-1.5 rounded text-white hover:bg-zinc-700 text-sm">⬅</button>
+                                    <button type="button" onclick="formatText('justifyCenter')" title="Centrar" class="px-3 py-1.5 rounded text-white hover:bg-zinc-700 text-sm">↔</button>
+                                    <button type="button" onclick="formatText('justifyRight')" title="Alinear derecha" class="px-3 py-1.5 rounded text-white hover:bg-zinc-700 text-sm">➡</button>
+                                    <button type="button" onclick="formatText('justifyFull')" title="Justificar" class="px-3 py-1.5 rounded text-white hover:bg-zinc-700 text-sm">▣</button>
+                                    <div class="w-px bg-zinc-700 mx-1"></div>
+                                    <button type="button" onclick="formatText('insertUnorderedList')" title="Lista con viñetas" class="px-3 py-1.5 rounded text-white hover:bg-zinc-700 text-sm">• ≡</button>
+                                    <button type="button" onclick="formatText('insertOrderedList')" title="Lista numerada" class="px-3 py-1.5 rounded text-white hover:bg-zinc-700 text-sm">1. ≡</button>
+                                    <div class="w-px bg-zinc-700 mx-1"></div>
+                                    <button type="button" onclick="formatText('createLink', prompt('URL del enlace:'))" title="Insertar enlace" class="px-3 py-1.5 rounded text-white hover:bg-zinc-700 text-sm">🔗</button>
+                                    <button type="button" onclick="formatText('removeFormat')" title="Quitar formato" class="px-3 py-1.5 rounded text-white hover:bg-zinc-700 text-sm">⌫</button>
+                                </div>
+                                <div id="nosotros-parrafo" contenteditable="true" class="min-h-[200px] p-4 text-zinc-200 text-sm leading-relaxed focus:outline-none" style="max-height: 400px; overflow-y: auto;"></div>
+                            </div>
+                            <p class="text-[10px] text-zinc-500 mt-1">Selecciona texto y usa los botones para aplicar formato. El contenido se guarda con HTML.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-4 mt-6 border-t border-zinc-800">
+                        <button onclick="guardarConfiguracionNosotros()" class="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md cursor-pointer">Guardar Configuración</button>
+                    </div>
+
+                    <div id="nosotros-message" class="mt-4 hidden"></div>
+                </div>
+            </div>
+
+            <!-- REDES SOCIALES CONFIG SECTION -->
+            <div id="section-social-config" class="content-section hidden">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-sm max-w-3xl">
+                    <h2 class="text-xl font-bold text-white tracking-wider uppercase mb-2">Redes Sociales & WhatsApp</h2>
+                    <p class="text-zinc-400 text-sm mb-6">Configura tus redes sociales y el botón flotante de WhatsApp. Solo aparecerán las que actives.</p>
+
+                    <!-- WHATSAPP -->
+                    <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700 mb-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-bold text-green-500 uppercase tracking-wider">💬 WhatsApp (Botón Flotante)</h3>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <span id="social-whatsapp-activo-label" class="text-[10px] font-bold text-green-500 uppercase tracking-wider">Activo</span>
+                                <button type="button" onclick="toggleSocialActivo('whatsapp')" class="toggle-switch active" id="social-whatsapp-activo">
+                                    <span class="toggle-knob"></span>
+                                </button>
+                            </label>
+                        </div>
+                        <div id="social-whatsapp-content" class="space-y-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Número de WhatsApp (con código de país, sin +)</label>
+                                <input type="text" id="social-whatsapp-numero" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-green-500" placeholder="584125274000">
+                                <p class="text-[10px] text-zinc-500 mt-1">Ejemplo: 584125274000 (58 = Venezuela, 412 = código, 5274000 = número)</p>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Mensaje predeterminado</label>
+                                <textarea id="social-whatsapp-mensaje" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-green-500 resize-none" placeholder="¡Hola! Me interesa conocer más..."></textarea>
+                                <p class="text-[10px] text-zinc-500 mt-1">Mensaje que se pre-rellenará cuando el cliente haga clic en el botón flotante.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INSTAGRAM -->
+                    <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700 mb-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-bold text-pink-400 uppercase tracking-wider">📷 Instagram</h3>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <span id="social-instagram-activo-label" class="text-[10px] font-bold text-green-500 uppercase tracking-wider">Activo</span>
+                                <button type="button" onclick="toggleSocialActivo('instagram')" class="toggle-switch active" id="social-instagram-activo">
+                                    <span class="toggle-knob"></span>
+                                </button>
+                            </label>
+                        </div>
+                        <div id="social-instagram-content" class="space-y-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Usuario</label>
+                                <input type="text" id="social-instagram-usuario" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-pink-500" placeholder="carissma">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">URL completa</label>
+                                <input type="url" id="social-instagram-url" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-pink-500" placeholder="https://instagram.com/carissma">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FACEBOOK -->
+                    <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700 mb-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-bold text-blue-400 uppercase tracking-wider">📘 Facebook</h3>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <span id="social-facebook-activo-label" class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Inactivo</span>
+                                <button type="button" onclick="toggleSocialActivo('facebook')" class="toggle-switch" id="social-facebook-activo">
+                                    <span class="toggle-knob"></span>
+                                </button>
+                            </label>
+                        </div>
+                        <div id="social-facebook-content" class="space-y-3 opacity-40 pointer-events-none">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">URL de tu página</label>
+                                <input type="url" id="social-facebook-url" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-blue-500" placeholder="https://facebook.com/carissma">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TIKTOK -->
+                    <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700 mb-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-bold text-zinc-300 uppercase tracking-wider">🎵 TikTok</h3>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <span id="social-tiktok-activo-label" class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Inactivo</span>
+                                <button type="button" onclick="toggleSocialActivo('tiktok')" class="toggle-switch" id="social-tiktok-activo">
+                                    <span class="toggle-knob"></span>
+                                </button>
+                            </label>
+                        </div>
+                        <div id="social-tiktok-content" class="space-y-3 opacity-40 pointer-events-none">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Usuario</label>
+                                <input type="text" id="social-tiktok-usuario" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-zinc-500" placeholder="carissma">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">URL completa</label>
+                                <input type="url" id="social-tiktok-url" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-zinc-500" placeholder="https://tiktok.com/@carissma">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- YOUTUBE -->
+                    <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700 mb-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-bold text-red-400 uppercase tracking-wider">▶️ YouTube</h3>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <span id="social-youtube-activo-label" class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Inactivo</span>
+                                <button type="button" onclick="toggleSocialActivo('youtube')" class="toggle-switch" id="social-youtube-activo">
+                                    <span class="toggle-knob"></span>
+                                </button>
+                            </label>
+                        </div>
+                        <div id="social-youtube-content" class="space-y-3 opacity-40 pointer-events-none">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">URL del canal</label>
+                                <input type="url" id="social-youtube-url" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-red-500" placeholder="https://youtube.com/@carissma">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PINTEREST -->
+                    <div class="bg-zinc-800 p-5 rounded-xl border border-zinc-700 mb-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-bold text-red-300 uppercase tracking-wider">📌 Pinterest</h3>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <span id="social-pinterest-activo-label" class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Inactivo</span>
+                                <button type="button" onclick="toggleSocialActivo('pinterest')" class="toggle-switch" id="social-pinterest-activo">
+                                    <span class="toggle-knob"></span>
+                                </button>
+                            </label>
+                        </div>
+                        <div id="social-pinterest-content" class="space-y-3 opacity-40 pointer-events-none">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">URL del perfil</label>
+                                <input type="url" id="social-pinterest-url" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-red-300" placeholder="https://pinterest.com/carissma">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-4 mt-4 border-t border-zinc-800">
+                        <button onclick="guardarConfiguracionSocial()" class="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md cursor-pointer">Guardar Configuración</button>
+                    </div>
+
+                    <div id="social-message" class="mt-4 hidden"></div>
+                </div>
+            </div>
+
+            <!-- AFILIADOS CONFIG SECTION -->
+            <div id="section-afiliados-config" class="content-section hidden">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-sm max-w-3xl">
+                    <h2 class="text-xl font-bold text-white tracking-wider uppercase mb-2">Configuración de Afiliados</h2>
+                    <p class="text-zinc-400 text-sm mb-6">Configura tu tag de afiliado para cada tienda y personaliza los textos y términos.</p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Coletilla general de precios de afiliados</label>
+                            <textarea id="aff-coletilla" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500 resize-none" placeholder="* Precio referencial, puede variar según la tienda"></textarea>
+                            <p class="text-[10px] text-zinc-500 mt-1">Aparece debajo de la grilla cuando hay productos afiliados.</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Texto del botón "Ir a Tienda Externa" en checkout</label>
+                            <input type="text" id="aff-boton-texto" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="Ir a Tienda Externa" value="Ir a Tienda Externa">
+                        </div>
+                    </div>
+
+                    <!-- AMAZON -->
+                    <div id="card-amazon" class="mt-6 bg-zinc-800 p-5 rounded-xl border border-zinc-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-bold text-orange-400 uppercase tracking-wider">🔶 Amazon</h3>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <span id="status-amazon" class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Inactivo</span>
+                                <button type="button" onclick="toggleTiendaActiva('Amazon')" class="toggle-switch" id="toggle-amazon">
+                                    <span class="toggle-knob"></span>
+                                </button>
+                            </label>
+                        </div>
+                        <div id="content-amazon" class="space-y-3 opacity-40 pointer-events-none transition-opacity">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Tag de Afiliado (tu Associates Tag)</label>
+                                <input type="text" id="aff-amazon-tag" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="miusuario-20">
+                                <p class="text-[10px] text-zinc-500 mt-1">Ejemplo: <code class="text-orange-300">miusuario-20</code> — lo obtienes en Amazon Associates</p>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Términos y Condiciones</label>
+                                <textarea id="aff-amazon-terminos" rows="4" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500 resize-none" placeholder="Términos específicos de Amazon..."></textarea>
+                                <p class="text-[10px] text-zinc-500 mt-1">Texto legal que verán tus clientes al comprar productos de Amazon afiliados.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TEMU -->
+                    <div id="card-temu" class="mt-4 bg-zinc-800 p-5 rounded-xl border border-zinc-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-bold text-orange-400 uppercase tracking-wider">🔶 Temu</h3>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <span id="status-temu" class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Inactivo</span>
+                                <button type="button" onclick="toggleTiendaActiva('Temu')" class="toggle-switch" id="toggle-temu">
+                                    <span class="toggle-knob"></span>
+                                </button>
+                            </label>
+                        </div>
+                        <div id="content-temu" class="space-y-3 opacity-40 pointer-events-none transition-opacity">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">AffID de Afiliado</label>
+                                <input type="text" id="aff-temu-tag" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="tu-affid">
+                                <p class="text-[10px] text-zinc-500 mt-1">Lo obtienes al registrarte en Temu Afiliados</p>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Términos y Condiciones</label>
+                                <textarea id="aff-temu-terminos" rows="4" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500 resize-none" placeholder="Términos específicos de Temu..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ALIEXPRESS -->
+                    <div id="card-aliexpress" class="mt-4 bg-zinc-800 p-5 rounded-xl border border-zinc-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-bold text-orange-400 uppercase tracking-wider">🔶 AliExpress</h3>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <span id="status-aliexpress" class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Inactivo</span>
+                                <button type="button" onclick="toggleTiendaActiva('AliExpress')" class="toggle-switch" id="toggle-aliexpress">
+                                    <span class="toggle-knob"></span>
+                                </button>
+                            </label>
+                        </div>
+                        <div id="content-aliexpress" class="space-y-3 opacity-40 pointer-events-none transition-opacity">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Aff_fcid de Afiliado</label>
+                                <input type="text" id="aff-aliexpress-tag" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="tu-codigo">
+                                <p class="text-[10px] text-zinc-500 mt-1">Lo obtienes en el Programa de Afiliados de AliExpress</p>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Términos y Condiciones</label>
+                                <textarea id="aff-aliexpress-terminos" rows="4" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500 resize-none" placeholder="Términos específicos de AliExpress..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-zinc-800 p-4 rounded-xl border border-zinc-700 mt-6">
+                        <p class="text-xs text-zinc-300 leading-relaxed">
+                            <strong class="text-orange-400">ℹ️ Política importante:</strong> Por las normas de Amazon, Temu, AliExpress y otras plataformas de afiliados, NO se permiten mostrar logos, marcas o referencias visuales a estas tiendas. Solo se usa tu link con el código de afiliado embebido y el cliente es redirigido directamente.
+                        </p>
+                    </div>
+
+                    <div class="flex justify-end pt-4 mt-4 border-t border-zinc-800">
+                        <button onclick="guardarConfiguracionAfiliados()" class="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md cursor-pointer">Guardar Configuración</button>
+                    </div>
+
+                    <div id="affiliados-message" class="mt-4 hidden"></div>
+                </div>
+            </div>
+
+            <!-- CLOUDINARY CONFIG SECTION -->
+            <div id="section-cloudinary-config" class="content-section hidden">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-sm max-w-4xl">
+                    <h2 class="text-xl font-bold text-white tracking-wider uppercase mb-2">Configurar Imágenes (Cloudinary)</h2>
+                    <p class="text-zinc-400 text-sm mb-6">Conecta tu cuenta de Cloudinary para subir imágenes de productos directamente desde este panel. Gratis: 25GB de almacenamiento.</p>
+
+                    <div id="cloudinary-status" class="mb-6 p-4 rounded-xl border border-zinc-700 bg-zinc-800">
+                        <div class="flex items-center gap-3">
+                            <span id="cloudinary-status-icon" class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                            <span id="cloudinary-status-text" class="text-sm font-semibold text-white">Verificando configuración...</span>
+                        </div>
+                        <p id="cloudinary-status-detail" class="text-xs text-zinc-400 mt-1 ml-6">Estado de la conexión con Cloudinary</p>
+                    </div>
+
+                    <div class="space-y-4 mb-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Cloud Name</label>
+                            <input type="text" id="cl-cloudName" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="dnwo4gayj">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Upload Preset</label>
+                                <input type="text" id="cl-uploadPreset" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="carissma_preset">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Carpeta (Opcional)</label>
+                                <input type="text" id="cl-folder" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="carissma">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-zinc-800">
+                        <button onclick="limpiarConfiguracionCloudinary()" class="bg-zinc-700 hover:bg-zinc-600 text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition cursor-pointer">Limpiar Datos</button>
+                        <button onclick="guardarConfiguracionCloudinary()" class="flex-1 bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md cursor-pointer">Guardar Configuración</button>
+                    </div>
+
+                    <div id="cloudinary-message" class="mt-4 hidden"></div>
+                </div>
+            </div>
+
+            <!-- USUARIOS SECTION -->
+            <div id="section-usuarios-config" class="content-section hidden">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-sm max-w-4xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-xl font-bold text-white tracking-wider uppercase">Gestión de Usuarios</h2>
+                            <p class="text-zinc-400 text-sm mt-1">Administra los usuarios administradores que pueden acceder al panel.</p>
+                        </div>
+                        <button id="btn-nuevo-usuario" onclick="mostrarFormUsuario()" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            Nuevo Usuario
+                        </button>
+                    </div>
+
+                    <div id="form-usuario" class="hidden bg-zinc-800 border border-zinc-700 rounded-xl p-5 mb-6">
+                        <h3 id="usuario-form-titulo" class="text-sm font-bold text-orange-400 uppercase tracking-wider mb-4">Nuevo Usuario</h3>
+                        <div class="space-y-3">
+                            <input type="hidden" id="usuario-uid">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Nombre *</label>
+                                    <input type="text" id="usuario-nombre" required class="w-full px-3 py-2 rounded-lg border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="Nombre del usuario">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Email *</label>
+                                    <input type="email" id="usuario-email" required class="w-full px-3 py-2 rounded-lg border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="usuario@email.com">
+                                </div>
+                            </div>
+                            <div>
+                                <label id="usuario-password-label" class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Contraseña *</label>
+                                <input type="password" id="usuario-password" class="w-full px-3 py-2 rounded-lg border border-zinc-700 bg-zinc-900 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="Mínimo 6 caracteres">
+                            </div>
+                            <div class="flex items-center gap-2 pt-2">
+                                <input type="checkbox" id="usuario-activo" checked class="w-4 h-4 text-orange-600 border-zinc-600 rounded focus:ring-orange-500">
+                                <label for="usuario-activo" class="text-sm text-zinc-300 cursor-pointer">Usuario activo (puede iniciar sesión)</label>
+                            </div>
+                            <div class="flex justify-end gap-2 pt-3 border-t border-zinc-700 mt-3">
+                                <button type="button" onclick="cancelarFormUsuario()" class="bg-zinc-700 hover:bg-zinc-600 text-white px-4 py-2 rounded-lg text-xs font-bold uppercase transition">Cancelar</button>
+                                <button type="button" onclick="guardarUsuario()" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg text-xs font-bold uppercase transition shadow-md">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="lista-usuarios" class="space-y-3"></div>
+                    <div id="usuarios-message" class="mt-4 hidden"></div>
+                </div>
+            </div>
+
+            <!-- FIREBASE CONFIG SECTION -->
+            <div id="section-firebase-config" class="content-section hidden">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-sm max-w-4xl">
+                    <h2 class="text-xl font-bold text-white tracking-wider uppercase mb-2">Conectar mi propia base de datos</h2>
+                    <p class="text-zinc-400 text-sm mb-6">Conecta este panel con tu proyecto de Firebase de forma directa. La configuración se guardará localmente en tu navegador de forma segura para tus futuras visitas.</p>
+
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded">
+                        <p class="text-sm text-red-800"><strong>Guía Rápida:</strong> Crea un proyecto web en <a href="https://console.firebase.google.com/" target="_blank" class="underline font-semibold">Firebase Console</a>, activa <strong>Authentication → Email/Password</strong> y <strong>Firestore Database</strong> en modo de lectura/escritura pública para tu tienda. Luego pega aquí los datos de inicialización.</p>
+                    </div>
+
+                    <div id="firebase-status" class="mb-6 p-4 rounded-xl border">
+                        <div class="flex items-center gap-3">
+                            <span id="firebase-status-icon" class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                            <span id="firebase-status-text" class="text-sm font-semibold text-gray-700">Verificando conexión...</span>
+                        </div>
+                        <p id="firebase-status-detail" class="text-xs text-gray-500 mt-1 ml-6">Estado de la conexión con Firebase</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Api Key</label>
+                            <input type="text" id="fb-apiKey" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="AIzaSy...">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Auth Domain</label>
+                            <input type="text" id="fb-authDomain" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="proyecto.firebaseapp.com">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Project ID</label>
+                            <input type="text" id="fb-projectId" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="proyecto-id">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Storage Bucket</label>
+                            <input type="text" id="fb-storageBucket" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="proyecto.appspot.com">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">Messaging Sender ID</label>
+                            <input type="text" id="fb-messagingSenderId" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="123456789">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-2">App ID</label>
+                            <input type="text" id="fb-appId" class="w-full px-4 py-2.5 rounded-xl border border-zinc-700 bg-zinc-800 text-white text-sm focus:outline-none focus:border-orange-500" placeholder="1:123:web:abc">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-zinc-800">
+                        <button onclick="limpiarConfigFirebase()" class="bg-zinc-700 hover:bg-zinc-600 text-white px-6 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition cursor-pointer">Limpiar Datos</button>
+                        <button onclick="guardarYSincronizarFirebase()" class="flex-1 bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md cursor-pointer">Guardar y Sincronizar Base de Datos</button>
+                    </div>
+
+                    <div id="firebase-message" class="mt-4 hidden"></div>
+                </div>
+            </div>
+
+            <!-- CONFIGURACION SECTION -->
+            <div id="section-configuracion" class="content-section hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-gray-900 mb-4">Información de la Tienda</h3>
+                        <form class="space-y-4">
+                            <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Nombre</label><input type="text" value="Carissma" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                            <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Descripción</label><textarea rows="3" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm resize-none">Artesanía selecta y diseño curado para enriquecer tu hogar.</textarea></div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Email</label><input type="email" value="nelsysnavas.music@gmail.com" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                                <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Teléfono</label><input type="tel" value="+58 412-5274000" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                            </div>
+                            <button type="button" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase transition cursor-pointer">Guardar Cambios</button>
+                        </form>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-gray-900 mb-4">Métodos de Pago Configurables</h3>
+                        <p class="text-xs text-gray-500 mb-4">Activa/desactiva cada método y configura los datos. Solo los activos aparecerán en el checkout del front.</p>
+
+                        <div class="space-y-3">
+
+                            <!-- PAGO MÓVIL -->
+                            <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                <div class="flex items-center justify-between p-3 bg-gray-50">
+                                    <button onclick="toggleAcordeon('pago_movil')" class="flex items-center gap-3 flex-1 text-left cursor-pointer">
+                                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-lg">📱</div>
+                                        <div>
+                                            <p class="text-sm font-semibold text-gray-900">Pago Móvil</p>
+                                            <p class="text-[10px] text-gray-500">Banco de Venezuela</p>
+                                        </div>
+                                        <svg id="chevron-pago_movil" class="w-4 h-4 text-gray-400 ml-auto transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                    </button>
+                                    <label class="flex items-center gap-2 cursor-pointer ml-3">
+                                        <span id="pago-pago_movil-status" class="text-[10px] font-bold text-green-500 uppercase tracking-wider">Activo</span>
+                                        <button type="button" onclick="event.stopPropagation(); togglePagoActivo('pago_movil')" class="toggle-switch active" id="pago-pago_movil-toggle">
+                                            <span class="toggle-knob"></span>
+                                        </button>
+                                    </label>
+                                </div>
+                                <div id="acordeon-pago_movil" class="hidden p-4 space-y-3 bg-white">
+                                    <div><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Banco</label><input type="text" id="pago-pm-banco" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Cédula</label><input type="text" id="pago-pm-cedula" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                                        <div><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Teléfono</label><input type="text" id="pago-pm-telefono" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                                    </div>
+                                    <div><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Beneficiario</label><input type="text" id="pago-pm-beneficiario" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                                </div>
+                            </div>
+
+                            <!-- TRANSFERENCIA -->
+                            <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                <div class="flex items-center justify-between p-3 bg-gray-50">
+                                    <button onclick="toggleAcordeon('transferencia')" class="flex items-center gap-3 flex-1 text-left cursor-pointer">
+                                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-lg">🏦</div>
+                                        <div>
+                                            <p class="text-sm font-semibold text-gray-900">Transferencia Bancaria</p>
+                                            <p class="text-[10px] text-gray-500">Banco de Venezuela</p>
+                                        </div>
+                                        <svg id="chevron-transferencia" class="w-4 h-4 text-gray-400 ml-auto transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                    </button>
+                                    <label class="flex items-center gap-2 cursor-pointer ml-3">
+                                        <span id="pago-transferencia-status" class="text-[10px] font-bold text-green-500 uppercase tracking-wider">Activo</span>
+                                        <button type="button" onclick="event.stopPropagation(); togglePagoActivo('transferencia')" class="toggle-switch active" id="pago-transferencia-toggle">
+                                            <span class="toggle-knob"></span>
+                                        </button>
+                                    </label>
+                                </div>
+                                <div id="acordeon-transferencia" class="hidden p-4 space-y-3 bg-white">
+                                    <div><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Banco</label><input type="text" id="pago-tf-banco" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                                    <div><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Número de Cuenta</label><input type="text" id="pago-tf-cuenta" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Titular</label><input type="text" id="pago-tf-titular" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                                        <div><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Cédula</label><input type="text" id="pago-tf-cedula" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ZELLE -->
+                            <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                <div class="flex items-center justify-between p-3 bg-gray-50">
+                                    <button onclick="toggleAcordeon('zelle')" class="flex items-center gap-3 flex-1 text-left cursor-pointer">
+                                        <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-lg">🔗</div>
+                                        <div>
+                                            <p class="text-sm font-semibold text-gray-900">Zelle</p>
+                                            <p class="text-[10px] text-gray-500">nelsysnavas.music@gmail.com</p>
+                                        </div>
+                                        <svg id="chevron-zelle" class="w-4 h-4 text-gray-400 ml-auto transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                    </button>
+                                    <label class="flex items-center gap-2 cursor-pointer ml-3">
+                                        <span id="pago-zelle-status" class="text-[10px] font-bold text-green-500 uppercase tracking-wider">Activo</span>
+                                        <button type="button" onclick="event.stopPropagation(); togglePagoActivo('zelle')" class="toggle-switch active" id="pago-zelle-toggle">
+                                            <span class="toggle-knob"></span>
+                                        </button>
+                                    </label>
+                                </div>
+                                <div id="acordeon-zelle" class="hidden p-4 space-y-3 bg-white">
+                                    <div><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Email del Beneficiario</label><input type="email" id="pago-zelle-email" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                                    <div><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Nombre del Beneficiario</label><input type="text" id="pago-zelle-nombre" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                                </div>
+                            </div>
+
+                            <!-- PAYPAL -->
+                            <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                <div class="flex items-center justify-between p-3 bg-gray-50">
+                                    <button onclick="toggleAcordeon('paypal')" class="flex items-center gap-3 flex-1 text-left cursor-pointer">
+                                        <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center text-lg">💰</div>
+                                        <div>
+                                            <p class="text-sm font-semibold text-gray-900">PayPal</p>
+                                            <p class="text-[10px] text-gray-500">nelsysnavas.music@gmail.com</p>
+                                        </div>
+                                        <svg id="chevron-paypal" class="w-4 h-4 text-gray-400 ml-auto transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                    </button>
+                                    <label class="flex items-center gap-2 cursor-pointer ml-3">
+                                        <span id="pago-paypal-status" class="text-[10px] font-bold text-green-500 uppercase tracking-wider">Activo</span>
+                                        <button type="button" onclick="event.stopPropagation(); togglePagoActivo('paypal')" class="toggle-switch active" id="pago-paypal-toggle">
+                                            <span class="toggle-knob"></span>
+                                        </button>
+                                    </label>
+                                </div>
+                                <div id="acordeon-paypal" class="hidden p-4 space-y-3 bg-white">
+                                    <div><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Email de PayPal</label><input type="email" id="pago-paypal-email" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                                </div>
+                            </div>
+
+                            <!-- EFECTIVO -->
+                            <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                <div class="flex items-center justify-between p-3 bg-gray-50">
+                                    <button onclick="toggleAcordeon('efectivo')" class="flex items-center gap-3 flex-1 text-left cursor-pointer">
+                                        <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-lg">💵</div>
+                                        <div>
+                                            <p class="text-sm font-semibold text-gray-900">Efectivo / Pago en Persona</p>
+                                            <p class="text-[10px] text-gray-500">San Fernando de Apure</p>
+                                        </div>
+                                        <svg id="chevron-efectivo" class="w-4 h-4 text-gray-400 ml-auto transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                    </button>
+                                    <label class="flex items-center gap-2 cursor-pointer ml-3">
+                                        <span id="pago-efectivo-status" class="text-[10px] font-bold text-green-500 uppercase tracking-wider">Activo</span>
+                                        <button type="button" onclick="event.stopPropagation(); togglePagoActivo('efectivo')" class="toggle-switch active" id="pago-efectivo-toggle">
+                                            <span class="toggle-knob"></span>
+                                        </button>
+                                    </label>
+                                </div>
+                                <div id="acordeon-efectivo" class="hidden p-4 space-y-3 bg-white">
+                                    <div><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Mensaje para el Cliente</label><textarea id="pago-efectivo-mensaje" rows="3" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm resize-none"></textarea></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button onclick="guardarConfiguracionPagos()" class="mt-4 w-full bg-orange-600 hover:bg-orange-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md cursor-pointer">Guardar Métodos de Pago</button>
+                        <div id="pagos-message" class="mt-4 hidden"></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-gray-900 mb-4">Configuración de Envío</h3>
+                        <form class="space-y-4">
+                            <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Envío Gratis desde ($)</label><input type="number" value="50" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                            <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Costo de Envío ($)</label><input type="number" value="5" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                            <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">IVA (%)</label><input type="number" value="16" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                            <button type="button" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase transition cursor-pointer">Guardar</button>
+                        </form>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-gray-900 mb-4">Notificaciones WhatsApp</h3>
+                        <form class="space-y-4">
+                            <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Número de WhatsApp</label><input type="tel" value="584125274000" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm"></div>
+                            <div class="flex items-center gap-3"><input type="checkbox" id="wa-notifications" checked class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500"><label for="wa-notifications" class="text-sm text-gray-700">Enviar notificación al confirmar pedido</label></div>
+                            <button type="button" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase transition cursor-pointer">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- PRODUCT MODAL (Restaurado al que funcionaba) -->
+    <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-black/50" onclick="closeProductModal()"></div>
+        <div class="bg-white rounded-2xl w-full max-w-lg relative z-10 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center sticky top-0 bg-white rounded-t-2xl">
+                <h3 id="product-modal-title" class="font-bold text-gray-900">Agregar Producto</h3>
+                <button onclick="closeProductModal()" class="text-gray-400 hover:text-gray-600 p-1 hover:bg-gray-100 rounded-full cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+            </div>
+            <div class="p-6">
+                <form id="product-form" class="space-y-4">
+                    <input type="hidden" id="product-id">
+                    <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Nombre *</label><input type="text" id="product-name" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm" placeholder="Nombre del producto"></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Precio ($) *</label><input type="number" step="0.01" id="product-price" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm" placeholder="0.00"></div>
+                        <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Categoría *</label><select id="product-category" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm"><option value="">Seleccionar</option></select></div>
+                    </div>
+                    <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">URL de Imagen *</label><input type="url" id="product-image" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm" placeholder="https://..."></div>
+                    <div class="space-y-1.5"><label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Descripción *</label><textarea id="product-desc" rows="3" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm resize-none" placeholder="Descripción del producto..."></textarea></div>
+
+                    <!-- ========== PRODUCTO DE AFILIADO ========== -->
+                    <div class="border-t border-gray-200 pt-4 mt-4">
+                        <div class="flex items-center gap-2 mb-3">
+                            <input type="checkbox" id="product-es-afiliado" class="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500 cursor-pointer" onchange="toggleAfiliadoFields()">
+                            <label for="product-es-afiliado" class="text-sm font-semibold text-gray-700 cursor-pointer">¿Es producto de afiliado? (Amazon, Temu, AliExpress, etc.)</label>
+                        </div>
+                        <div id="afiliado-fields" class="hidden space-y-3 bg-orange-50 p-4 rounded-xl border border-orange-100">
+                            <div class="text-[10px] text-orange-800 leading-relaxed">
+                                <strong>ℹ️ Importante:</strong> Por las políticas de las plataformas de afiliados, NO se muestran logos ni referencias a Amazon, Temu u otras tiendas. Solo se guarda tu link con el código de afiliado embebido. El precio lleva un asterisco (*) y la coletilla se muestra abajo de la grilla.
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Tienda</label>
+                                <select id="product-tienda" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm">
+                                    <option value="">Seleccionar (opcional)</option>
+                                    <option value="Amazon">Amazon</option>
+                                    <option value="Temu">Temu</option>
+                                    <option value="AliExpress">AliExpress</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">URL de Tienda Externa (con código de afiliado) *</label>
+                                <div class="flex gap-2">
+                                    <input type="url" id="product-url-afiliado" class="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 text-sm" placeholder="https://www.amazon.com/producto">
+                                    <button type="button" onclick="autocompletarTagTienda()" title="Pega primero el link del producto y haz clic aquí para agregar tu tag automáticamente" class="px-3 py-2.5 bg-orange-50 text-orange-600 rounded-xl hover:bg-orange-100 transition cursor-pointer whitespace-nowrap text-xs font-bold uppercase tracking-wider">
+                                        + Tag Auto
+                                    </button>
+                                </div>
+                                <p class="text-[10px] text-gray-500 mt-1">1) Selecciona la tienda 2) Pega el link del producto 3) Clic en "+ Tag Auto" para agregar tu código</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ========================================== -->
+                    <div class="flex justify-end gap-3 pt-4 border-t border-gray-100">
+                        <button type="button" onclick="closeProductModal()" class="border border-gray-300 text-gray-700 px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-gray-50 cursor-pointer">Cancelar</button>
+                        <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md cursor-pointer">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ORDER DETAIL MODAL -->
+    <div id="order-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-black/50" onclick="closeOrderModal()"></div>
+        <div class="bg-white rounded-2xl w-full max-w-lg relative z-10 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center sticky top-0 bg-white rounded-t-2xl">
+                <h3 class="font-bold text-gray-900">Detalle del Pedido</h3>
+                <button onclick="closeOrderModal()" class="text-gray-400 hover:text-gray-600 p-1 hover:bg-gray-100 rounded-full cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+            </div>
+            <div id="order-detail-content" class="p-6"></div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-service.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/firebase-config-panel.js"></script>
+    <script src="js/cloudinary-config.js"></script>
+    <script src="js/cloudinary-service.js"></script>
+    <script src="js/cloudinary-panel.js"></script>
+    <script src="js/affiliates-config.js"></script>
+    <script src="js/emailjs-config.js"></script>
+    <script src="js/emailjs-service.js"></script>
+    <script src="js/emailjs-panel.js"></script>
+    <script src="js/social-config.js"></script>
+    <script src="js/social-panel.js"></script>
+    <script src="js/nosotros-config.js"></script>
+    <script src="js/nosotros-panel.js"></script>
+    <script src="js/pagos-config.js"></script>
+    <script src="js/pagos-panel.js"></script>
+    <script src="js/seo-config.js"></script>
+    <script src="js/seo-panel.js"></script>
+    <script src="js/importar-exportar.js"></script>
+    <script src="js/contenido-config.js"></script>
+    <script src="js/contenido-panel.js"></script>
+    <script src="js/categorias-config.js"></script>
+    <script src="js/categorias-panel.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="js/auth-config.js"></script>
+    <script src="js/usuarios-panel.js"></script>
+    <script src="dashboard.js"></script>
+
+    <script>
+        (function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            if (currentPage !== 'login.html') {
+                const cached = getCurrentUser();
+                if (!cached) {
+                    setTimeout(function() {
+                        if (!getCurrentUser()) {
+                            window.location.href = 'login.html';
+                        }
+                    }, 500);
+                }
+            }
+
+            function cargarUsuarioUI() {
+                const user = getCurrentUser();
+                if (user) {
+                    const nameEl = document.getElementById('user-name');
+                    const roleEl = document.getElementById('user-role');
+                    const avatarEl = document.getElementById('user-avatar');
+                    if (nameEl) nameEl.textContent = user.displayName || user.email;
+                    if (roleEl) roleEl.textContent = user.role === 'super_admin' ? 'Super Admin' : 'Admin';
+                    if (avatarEl) avatarEl.textContent = (user.displayName || user.email).charAt(0).toUpperCase();
+                }
+            }
+
+            auth.onAuthStateChanged(function(user) {
+                if (user) {
+                    db.collection('usuarios').doc(user.uid).get().then(function(doc) {
+                        if (doc.exists) {
+                            setCurrentUser(doc.data());
+                            cargarUsuarioUI();
+                        }
+                    });
+                } else {
+                    setCurrentUser(null);
+                    if (currentPage === 'dashboard.html') {
+                        window.location.href = 'login.html';
+                    }
+                }
+            });
+
+            setTimeout(cargarUsuarioUI, 300);
+
+            const obs = new MutationObserver(function() {
+                const nameEl = document.getElementById('user-name');
+                if (nameEl) {
+                    cargarUsuarioUI();
+                    obs.disconnect();
+                }
+            });
+            obs.observe(document.body, { childList: true, subtree: false });
+        })();
+    </script>
+</body>
+</html>

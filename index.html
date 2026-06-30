@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carissma - Artesanía y Curación para Ti</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- CSS Modulares (complementan a Tailwind) -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/front.css">
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- CABECERA (HEADER) -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-40 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-full hover:bg-gray-100 transition focus:outline-none cursor-pointer text-gray-600" aria-label="Abrir Menú">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <button onclick="filterCategory('todos'); smoothScrollTo(0, 1200);" class="hidden md:flex items-center gap-3 cursor-pointer focus:outline-none group text-left" aria-label="Volver al inicio">
+                <img src="images/favicon.png" alt="Icono Carissma" class="w-12 h-12 rounded-full object-cover shadow-sm border border-orange-100 transition group-hover:scale-105">
+                <span class="hidden sm:inline font-semibold text-gray-700 tracking-wider text-xs group-hover:text-orange-600 transition">CARISSMA</span>
+            </button>
+
+            <button onclick="filterCategory('todos'); smoothScrollTo(0, 1200);" class="flex justify-center flex-1 max-w-xs md:max-w-sm px-4 cursor-pointer focus:outline-none group" aria-label="Volver al inicio">
+                <img src="images/logocarissma_horizontal.png" alt="Carissma Logo" class="h-12 md:h-16 object-contain transition group-hover:scale-102">
+            </button>
+
+            <div class="flex items-center">
+                <button onclick="toggleCart()" class="relative p-2 rounded-full hover:bg-gray-100 transition focus:outline-none cursor-pointer" aria-label="Ver Carrito">
+                    <div class="w-10 h-10 flex items-center justify-center bg-orange-50 rounded-full text-orange-600 hover:text-orange-700">
+                        <img src="images/shopping-bag.svg" alt="Carrito" class="w-6 h-6">
+                    </div>
+                    <span id="cart-counter" class="absolute top-0 right-0 bg-orange-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white shadow-sm transform translate-x-1 -translate-y-1">0</span>
+                </button>
+            </div>
+        </div>
+
+        <nav class="hidden md:block bg-white border-t border-gray-50 py-3">
+            <ul class="flex justify-center items-center px-4 space-x-12 text-sm font-medium text-gray-600 w-full">
+                <li>
+                    <button onclick="filterCategory('todos'); smoothScrollTo(0, 1200);" id="btn-nav-todos" class="hover:text-orange-600 transition border-b-2 border-orange-500 pb-1 text-orange-600 cursor-pointer inline-block">Inicio</button>
+                </li>
+                <li>
+                    <button onclick="filterCategory('Hecho a mano'); smoothScrollTo(0, 1200);" id="btn-nav-handmade" class="hover:text-orange-600 transition border-b-2 border-transparent pb-1 cursor-pointer inline-block">Hecho a mano</button>
+                </li>
+                <li>
+                    <button onclick="filterCategory('Curado'); smoothScrollTo(0, 1200);" id="btn-nav-curated" class="hover:text-orange-600 transition border-b-2 border-transparent pb-1 cursor-pointer inline-block">Curado</button>
+                </li>
+                <li>
+                    <button onclick="smoothScrollToSection('#nosotros-section')" class="hover:text-orange-600 transition cursor-pointer inline-block">Sobre Nosotros</button>
+                </li>
+                <li>
+                    <button onclick="smoothScrollToSection('#contacto-section')" class="hover:text-orange-600 transition cursor-pointer inline-block">Contacto</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- BANNER HERO -->
+    <div class="relative bg-orange-500 h-40 md:h-52 flex items-center justify-center overflow-hidden shadow-inner">
+        <img src="images/textura_carissma.jpg" alt="Textura de papel arrugado naranja" class="absolute inset-0 w-full h-full object-cover opacity-85 mix-blend-multiply">
+        <div class="absolute inset-0 bg-black/10"></div>
+        <div class="relative z-10 text-center px-4">
+            <h2 class="serif-font text-2xl sm:text-3xl md:text-5xl text-white font-medium tracking-wide drop-shadow-md">
+                Artesanía y Curación para Ti
+            </h2>
+            <p class="text-white/90 text-[10px] sm:text-xs md:text-sm mt-2 tracking-widest uppercase font-light">Objetos con alma para espacios excepcionales</p>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-10 w-full">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 border-b border-gray-100 pb-4">
+            <div>
+                <h3 id="category-title" class="serif-font text-2xl md:text-3xl text-gray-900 font-semibold">Nuestra Colección</h3>
+                <p id="category-desc" class="text-gray-500 text-sm mt-1">Explora piezas artesanales hechas a mano y artículos de diseño curados.</p>
+            </div>
+            <div class="flex gap-2 w-full sm:w-auto">
+                <button onclick="filterCategory('todos')" id="btn-filter-todos" class="flex-1 sm:flex-none px-4 py-2 rounded-full text-xs font-semibold bg-orange-600 text-white shadow-xs transition hover:bg-orange-700 cursor-pointer">
+                    Todos
+                </button>
+                <button onclick="filterCategory('Hecho a mano')" id="btn-filter-handmade" class="flex-1 sm:flex-none px-4 py-2 rounded-full text-xs font-semibold bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 transition cursor-pointer">
+                    Hecho a mano
+                </button>
+                <button onclick="filterCategory('Curado')" id="btn-filter-curated" class="flex-1 sm:flex-none px-4 py-2 rounded-full text-xs font-semibold bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 transition cursor-pointer">
+                    Curado
+                </button>
+            </div>
+        </div>
+
+        <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+            <!-- Los productos se renderizan dinámicamente mediante JavaScript -->
+        </div>
+        <div id="aff-coletilla-container" class="mt-6 text-center hidden">
+            <p id="aff-coletilla-display" class="text-[11px] text-gray-500 italic"></p>
+        </div>
+    </main>
+
+    <!-- PANEL DEL CARRITO DE COMPRAS (SIDEBAR DESLIZANTE) -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full sm:w-[450px] bg-white z-50 shadow-2xl cart-transition transform translate-x-full flex flex-col border-l border-gray-100">
+        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="images/shopping-bag.svg" alt="Carrito" class="w-6 h-6">
+                <h3 class="serif-font text-xl font-bold text-gray-900">Tu Pedido</h3>
+            </div>
+            <button onclick="toggleCart()" class="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-50 transition cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4 no-scrollbar">
+            <div class="text-center py-12 text-gray-400 flex flex-col items-center justify-center h-full">
+                <img src="images/shopping-bag.svg" alt="Carrito vacío" class="w-20 h-20 mb-3 opacity-60">
+                <p class="font-medium text-gray-600">Tu carrito está vacío</p>
+                <p class="text-xs text-gray-400 mt-1">¡Agrega algunos productos hermosos para comenzar!</p>
+            </div>
+        </div>
+
+        <div class="p-6 border-t border-gray-100 bg-gray-50">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-gray-600 text-sm font-medium">Subtotal</span>
+                <span id="cart-subtotal" class="text-2xl font-bold text-gray-900">$0.00</span>
+            </div>
+            <p class="text-[10px] text-gray-400 mb-4">Los gastos de envío e impuestos se calculan al finalizar la compra.</p>
+            <button onclick="proceedToCheckout()" class="w-full bg-orange-600 hover:bg-orange-700 text-white py-3 rounded-xl font-semibold shadow-md transition-all hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer">
+                <span>Proceder a la Compra</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- PANEL DEL MENÚ MÓVIL (SIDEBAR DESLIZANTE IZQUIERDO) -->
+    <div id="mobile-menu" class="fixed inset-y-0 left-0 w-72 bg-white z-50 shadow-2xl cart-transition transform -translate-x-full flex flex-col border-r border-gray-100">
+        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="images/favicon.png" alt="Icono Carissma" class="w-8 h-8 rounded-full object-cover border border-orange-100">
+                <span class="serif-font text-lg font-bold text-orange-600">Carissma</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-50 transition cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-6 space-y-6">
+            <div class="space-y-1">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Categorías</p>
+                <button onclick="filterCategory('todos'); toggleMobileMenu(); smoothScrollTo(0, 1200);" class="w-full text-left py-2.5 px-4 rounded-xl text-sm font-medium text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition flex items-center gap-3">
+                    <span>🏠</span> Inicio
+                </button>
+                <button onclick="filterCategory('Hecho a mano'); toggleMobileMenu(); smoothScrollTo(0, 1200);" class="w-full text-left py-2.5 px-4 rounded-xl text-sm font-medium text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition flex items-center gap-3">
+                    <span>👐</span> Hecho a mano
+                </button>
+                <button onclick="filterCategory('Curado'); toggleMobileMenu(); smoothScrollTo(0, 1200);" class="w-full text-left py-2.5 px-4 rounded-xl text-sm font-medium text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition flex items-center gap-3">
+                    <span>✨</span> Curado
+                </button>
+            </div>
+
+            <hr class="border-gray-100">
+
+            <div class="space-y-1">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Información</p>
+                <button onclick="toggleMobileMenu(); smoothScrollToSection('#nosotros-section');" class="w-full text-left py-2.5 px-4 rounded-xl text-sm font-medium text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition flex items-center gap-3">
+                    Sobre Nosotros
+                </button>
+                <button onclick="toggleMobileMenu(); smoothScrollToSection('#contacto-section');" class="w-full text-left py-2.5 px-4 rounded-xl text-sm font-medium text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition flex items-center gap-3">
+                    Contacto
+                </button>
+            </div>
+        </div>
+
+        <div class="p-6 border-t border-gray-100 bg-gray-50 text-center mt-auto">
+            <p class="text-zinc-500 text-[10px]">&copy; 2026 Carissma. Todos los derechos reservados.</p>
+        </div>
+    </div>
+
+    <!-- Fondo opaco cuando el menú móvil está activo -->
+    <div id="mobile-menu-overlay" onclick="toggleMobileMenu()" class="fixed inset-0 bg-black/40 z-40 hidden transition-opacity"></div>
+
+    <!-- Fondo opaco cuando el carrito está activo -->
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/40 z-40 hidden transition-opacity"></div>
+
+    <!-- MODAL DE DETALLE DE PRODUCTO E INFORMACIÓN GENERAL -->
+    <div id="detail-modal" class="modal-container fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="modal-backdrop absolute inset-0 bg-black/60" onclick="closeDetailModal()"></div>
+        <div id="modal-card-inner" class="modal-card bg-white rounded-3xl w-full max-h-[90vh] overflow-y-auto no-scrollbar relative z-10 shadow-2xl max-w-lg">
+            <div class="p-6">
+                <div id="modal-header" class="flex justify-between items-start mb-4">
+                    <h4 id="modal-title" class="serif-font text-2xl font-bold text-gray-900">Detalles</h4>
+                    <button onclick="closeDetailModal()" class="text-gray-400 hover:text-gray-600 p-1 hover:bg-gray-100 rounded-full cursor-pointer focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div id="modal-content-area" class="space-y-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CHECKOUT MULTI-PASO -->
+    <div id="checkout-modal" class="modal-container fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="modal-backdrop absolute inset-0 bg-black/60" onclick="closeCheckoutModal()"></div>
+        <div class="modal-card bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto no-scrollbar relative z-10 shadow-2xl">
+            <div class="p-6 border-b border-gray-100 sticky top-0 bg-white z-10 rounded-t-3xl">
+                <div class="flex justify-between items-center">
+                    <h3 class="serif-font text-xl font-bold text-gray-900">Finalizar Compra</h3>
+                    <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-full transition cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex items-center justify-center mt-4 gap-2">
+                    <div id="step-1-indicator" class="step-indicator active w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 border-orange-500">1</div>
+                    <div class="w-12 h-0.5 bg-gray-200"><div id="step-1-line" class="h-full bg-orange-500 transition-all duration-300" style="width: 0%"></div></div>
+                    <div id="step-2-indicator" class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 border-gray-200 text-gray-400">2</div>
+                    <div class="w-12 h-0.5 bg-gray-200"><div id="step-2-line" class="h-full bg-orange-500 transition-all duration-300" style="width: 0%"></div></div>
+                    <div id="step-3-indicator" class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 border-gray-200 text-gray-400">3</div>
+                </div>
+                <div class="flex justify-center mt-2 gap-16">
+                    <span id="step-1-label" class="text-[10px] font-semibold text-orange-600">Envío</span>
+                    <span id="step-2-label" class="text-[10px] font-semibold text-gray-400">Pago</span>
+                    <span id="step-3-label" class="text-[10px] font-semibold text-gray-400">Confirmar</span>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <!-- PASO 1: DATOS DE ENVÍO -->
+                <div id="checkout-step-1" class="checkout-step active">
+                    <h4 class="font-bold text-gray-900 text-sm uppercase tracking-wider mb-4">Datos de Contacto y Envío</h4>
+                    <form id="shipping-form" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Nombre *</label>
+                                <input type="text" id="ship-name" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="Nombre">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Apellido *</label>
+                                <input type="text" id="ship-lastname" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="Apellido">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Teléfono *</label>
+                                <input type="tel" id="ship-phone" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="+58 412-1234567">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Correo *</label>
+                                <input type="email" id="ship-email" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="correo@ejemplo.com">
+                            </div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Dirección *</label>
+                            <input type="text" id="ship-address" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="Calle, número, urbanización">
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Ciudad *</label>
+                                <input type="text" id="ship-city" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="San Fernando">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Estado *</label>
+                                <select id="ship-state" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition">
+                                    <option value="">Seleccionar</option>
+                                    <option value="Apure">Apure</option>
+                                    <option value="Aragua">Aragua</option>
+                                    <option value="Bolívar">Bolívar</option>
+                                    <option value="Carabobo">Carabobo</option>
+                                    <option value="Cojedes">Cojedes</option>
+                                    <option value="Distrito Capital">Distrito Capital</option>
+                                    <option value="Falcón">Falcón</option>
+                                    <option value="Guárico">Guárico</option>
+                                    <option value="Lara">Lara</option>
+                                    <option value="Mérida">Mérida</option>
+                                    <option value="Miranda">Miranda</option>
+                                    <option value="Monagas">Monagas</option>
+                                    <option value="Nueva Esparta">Nueva Esparta</option>
+                                    <option value="Portuguesa">Portuguesa</option>
+                                    <option value="Sucre">Sucre</option>
+                                    <option value="Táchira">Táchira</option>
+                                    <option value="Trujillo">Trujillo</option>
+                                    <option value="Vargas">Vargas</option>
+                                    <option value="Yaracuy">Yaracuy</option>
+                                    <option value="Zulia">Zulia</option>
+                                </select>
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Código Postal</label>
+                                <input type="text" id="ship-zip" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="Opcional">
+                            </div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Referencia (Opcional)</label>
+                            <textarea id="ship-reference" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition resize-none" placeholder="Casa blanca, puerta verde, al lado del mercado..."></textarea>
+                        </div>
+                    </form>
+                    <div class="flex justify-end mt-6">
+                        <button onclick="goToStep(2)" class="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2">
+                            Continuar al Pago
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PASO 2: MÉTODO DE PAGO -->
+                <div id="checkout-step-2" class="checkout-step">
+                    <h4 class="font-bold text-gray-900 text-sm uppercase tracking-wider mb-4">Método de Pago</h4>
+                    <div class="space-y-3">
+                        <!-- Pago Móvil -->
+                        <div class="payment-option border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectPayment('pago_movil')">
+                            <input type="radio" name="payment" id="pay-pago-movil" value="pago_movil" class="hidden">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-gray-900 text-sm">Pago Móvil</p>
+                                    <p class="text-[10px] text-gray-500">Transferencia desde tu banco móvil</p>
+                                </div>
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center" id="radio-pago_movil">
+                                    <div class="w-3 h-3 bg-orange-500 rounded-full hidden"></div>
+                                </div>
+                            </div>
+                            <div id="pago-movil-details" class="hidden mt-4 pt-4 border-t border-gray-100 space-y-3">
+                                <div class="bg-green-50 p-3 rounded-lg">
+                                    <p class="text-[10px] font-bold text-green-800 uppercase">Datos para Pago Móvil</p>
+                                    <p class="text-xs text-green-700 mt-1"><strong>Banco:</strong> 0102 - Banco de Venezuela</p>
+                                    <p class="text-xs text-green-700"><strong>Cédula:</strong> V-12.345.678</p>
+                                    <p class="text-xs text-green-700"><strong>Teléfono:</strong> 0412-5274000</p>
+                                    <p class="text-xs text-green-700"><strong>Beneficiario:</strong> Nelsys Navas</p>
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Número de Referencia *</label>
+                                    <input type="text" id="pm-reference" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="Ej: 1234567890">
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Últimos 4 dígitos de la cuenta *</label>
+                                    <input type="text" id="pm-last4" maxlength="4" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="Ej: 1234">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Transferencia Bancaria -->
+                        <div class="payment-option border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectPayment('transferencia')">
+                            <input type="radio" name="payment" id="pay-transferencia" value="transferencia" class="hidden">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-gray-900 text-sm">Transferencia Bancaria</p>
+                                    <p class="text-[10px] text-gray-500">Depósito o transferencia directa</p>
+                                </div>
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center" id="radio-transferencia">
+                                    <div class="w-3 h-3 bg-orange-500 rounded-full hidden"></div>
+                                </div>
+                            </div>
+                            <div id="transferencia-details" class="hidden mt-4 pt-4 border-t border-gray-100 space-y-3">
+                                <div class="bg-blue-50 p-3 rounded-lg">
+                                    <p class="text-[10px] font-bold text-blue-800 uppercase">Datos Bancarios</p>
+                                    <p class="text-xs text-blue-700 mt-1"><strong>Banco:</strong> 0102 - Banco de Venezuela</p>
+                                    <p class="text-xs text-blue-700"><strong>Cuenta:</strong> 0134-0123-12-1234567890</p>
+                                    <p class="text-xs text-blue-700"><strong>Titular:</strong> Nelsys Navas</p>
+                                    <p class="text-xs text-blue-700"><strong>Cédula:</strong> V-12.345.678</p>
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Número de Referencia *</label>
+                                    <input type="text" id="tf-reference" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="Ej: 9876543210">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Zelle -->
+                        <div class="payment-option border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectPayment('zelle')">
+                            <input type="radio" name="payment" id="pay-zelle" value="zelle" class="hidden">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-gray-900 text-sm">Zelle</p>
+                                    <p class="text-[10px] text-gray-500">Pago internacional rápido</p>
+                                </div>
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center" id="radio-zelle">
+                                    <div class="w-3 h-3 bg-orange-500 rounded-full hidden"></div>
+                                </div>
+                            </div>
+                            <div id="zelle-details" class="hidden mt-4 pt-4 border-t border-gray-100 space-y-3">
+                                <div class="bg-purple-50 p-3 rounded-lg">
+                                    <p class="text-[10px] font-bold text-purple-800 uppercase">Datos para Zelle</p>
+                                    <p class="text-xs text-purple-700 mt-1"><strong>Email:</strong> nelsysnavas.music@gmail.com</p>
+                                    <p class="text-xs text-purple-700"><strong>Nombre:</strong> Nelsys Navas</p>
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Correo de envío *</label>
+                                    <input type="email" id="zelle-email" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="Tu correo de Zelle">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PayPal -->
+                        <div class="payment-option border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectPayment('paypal')">
+                            <input type="radio" name="payment" id="pay-paypal" value="paypal" class="hidden">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-gray-900 text-sm">PayPal</p>
+                                    <p class="text-[10px] text-gray-500">Pago seguro internacional</p>
+                                </div>
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center" id="radio-paypal">
+                                    <div class="w-3 h-3 bg-orange-500 rounded-full hidden"></div>
+                                </div>
+                            </div>
+                            <div id="paypal-details" class="hidden mt-4 pt-4 border-t border-gray-100 space-y-3">
+                                <div class="bg-yellow-50 p-3 rounded-lg">
+                                    <p class="text-[10px] font-bold text-yellow-800 uppercase">Pago con PayPal</p>
+                                    <p class="text-xs text-yellow-700 mt-1">Serás redirigido a PayPal para completar el pago de forma segura.</p>
+                                    <p class="text-xs text-yellow-700 mt-1"><strong>Cuenta:</strong> nelsysnavas.music@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Efectivo -->
+                        <div class="payment-option border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectPayment('efectivo')">
+                            <input type="radio" name="payment" id="pay-efectivo" value="efectivo" class="hidden">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-gray-900 text-sm">Efectivo / Pago en Persona</p>
+                                    <p class="text-[10px] text-gray-500">Acuerda entrega en San Fernando de Apure</p>
+                                </div>
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center" id="radio-efectivo">
+                                    <div class="w-3 h-3 bg-orange-500 rounded-full hidden"></div>
+                                </div>
+                            </div>
+                            <div id="efectivo-details" class="hidden mt-4 pt-4 border-t border-gray-100">
+                                <div class="bg-orange-50 p-3 rounded-lg">
+                                    <p class="text-[10px] font-bold text-orange-800 uppercase">Pago en Efectivo</p>
+                                    <p class="text-xs text-orange-700 mt-1">Nos pondremos en contacto contigo para coordinar la entrega y el pago en efectivo en San Fernando de Apure.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between mt-6">
+                        <button onclick="goToStep(1)" class="border border-gray-300 text-gray-700 px-6 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition hover:bg-gray-50 cursor-pointer flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                            Volver
+                        </button>
+                        <button onclick="goToStep(3)" class="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2">
+                            Revisar Pedido
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PASO 3: CONFIRMACIÓN Y RESUMEN -->
+                <div id="checkout-step-3" class="checkout-step">
+                    <h4 class="font-bold text-gray-900 text-sm uppercase tracking-wider mb-4">Resumen del Pedido</h4>
+                    <div id="checkout-items" class="space-y-3 mb-4"></div>
+                    <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Enviar a</p>
+                                <p id="summary-name" class="text-sm font-semibold text-gray-900 mt-1"></p>
+                                <p id="summary-address" class="text-xs text-gray-600"></p>
+                            </div>
+                            <button onclick="goToStep(1)" class="text-orange-600 text-xs font-semibold hover:underline cursor-pointer">Editar</button>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Método de Pago</p>
+                                <p id="summary-payment" class="text-sm font-semibold text-gray-900 mt-1"></p>
+                            </div>
+                            <button onclick="goToStep(2)" class="text-orange-600 text-xs font-semibold hover:underline cursor-pointer">Editar</button>
+                        </div>
+                    </div>
+
+                    <!-- FACTURA / RECIBO -->
+                    <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-3">🧾 Factura / Recibo</p>
+                        <div class="space-y-2 mb-3">
+                            <label class="flex items-center gap-2 cursor-pointer p-2 hover:bg-white rounded-lg transition">
+                                <input type="radio" name="factura" value="ninguna" checked onchange="actualizarCamposFactura()" class="w-4 h-4 text-orange-600 cursor-pointer">
+                                <span class="text-sm text-gray-700">No necesito factura</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 hover:bg-white rounded-lg transition">
+                                <input type="radio" name="factura" value="fiscal" onchange="actualizarCamposFactura()" class="w-4 h-4 text-orange-600 cursor-pointer">
+                                <span class="text-sm text-gray-700">Necesito factura fiscal (Venezuela)</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 hover:bg-white rounded-lg transition">
+                                <input type="radio" name="factura" value="simple" onchange="actualizarCamposFactura()" class="w-4 h-4 text-orange-600 cursor-pointer">
+                                <span class="text-sm text-gray-700">Necesito recibo simple</span>
+                            </label>
+                        </div>
+                        <div id="campo-rif" class="hidden space-y-2">
+                            <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">RIF / Cédula *</label>
+                            <input type="text" id="factura-rif" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm" placeholder="V-12345678 o J-123456789">
+                            <p class="text-[10px] text-gray-500">Necesario para emitir tu factura fiscal manualmente.</p>
+                        </div>
+                        <div id="campo-recibo" class="hidden space-y-2">
+                            <label class="text-[10px] font-bold text-gray-600 uppercase tracking-wider">Email para recibo *</label>
+                            <input type="email" id="factura-email" class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-orange-500 text-sm" placeholder="tu@email.com">
+                            <p class="text-[10px] text-gray-500">Te enviaremos el recibo a este correo.</p>
+                        </div>
+                    </div>
+
+                    <!-- ¿FUERA DEL PAÍS? -->
+                    <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-3">🌍 Ubicación de Envío</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-2 cursor-pointer p-2 hover:bg-white rounded-lg transition">
+                                <input type="radio" name="ubicacion" value="venezuela" checked onchange="actualizarUbicacionPais()" class="w-4 h-4 text-orange-600 cursor-pointer">
+                                <span class="text-sm text-gray-700">No, estoy en Venezuela 🇻🇪</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer p-2 hover:bg-white rounded-lg transition">
+                                <input type="radio" name="ubicacion" value="extranjero" onchange="actualizarUbicacionPais()" class="w-4 h-4 text-orange-600 cursor-pointer">
+                                <span class="text-sm text-gray-700">Sí, estoy fuera del país 🌎</span>
+                            </label>
+                        </div>
+                        <p id="ubicacion-nota" class="hidden mt-3 text-[10px] text-orange-700 bg-orange-50 p-2 rounded">
+                            <strong>Nota:</strong> Si elegiste factura/recibo, te lo enviaremos por email en formato digital.
+                        </p>
+                    </div>
+
+                    <!-- COLETILLA DE AFILIADOS (condicional) -->
+                    <div id="afiliados-coletilla" class="hidden bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-4 rounded">
+                        <p class="text-xs text-yellow-800 leading-relaxed">
+                            <strong>📦 Nota sobre productos de tiendas externas:</strong> Los productos de Amazon, Temu, AliExpress u otras tiendas similares son facturados y enviados directamente por la tienda correspondiente. Carissma no emite factura por estos productos.
+                        </p>
+                    </div>
+
+                    <div class="border-t border-gray-200 pt-4 space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Subtotal (<span id="summary-count">0</span> artículos)</span>
+                            <span id="summary-subtotal" class="font-semibold text-gray-900">$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Envío</span>
+                            <span id="summary-shipping" class="font-semibold text-gray-900"></span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Impuestos (IVA 16%)</span>
+                            <span id="summary-tax" class="font-semibold text-gray-900">$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-lg font-bold border-t border-gray-200 pt-3 mt-3">
+                            <span class="text-gray-900">Total</span>
+                            <span id="summary-total" class="text-orange-600">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-6">
+                        <button onclick="goToStep(2)" class="border border-gray-300 text-gray-700 px-6 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition hover:bg-gray-50 cursor-pointer flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                            Volver
+                        </button>
+                        <button onclick="confirmOrder()" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Confirmar Pedido
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PASO 4: ÉXITO -->
+                <div id="checkout-step-4" class="checkout-step text-center py-8">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <h4 class="serif-font text-2xl font-bold text-gray-900 mb-2">¡Pedido Confirmado!</h4>
+                    <p class="text-gray-500 text-sm mb-6">Tu pedido <strong id="order-number"></strong> ha sido registrado exitosamente.</p>
+                    <div id="success-message-local" class="bg-gray-50 rounded-xl p-4 text-left mb-6">
+                        <p class="text-xs text-gray-600 leading-relaxed">Recibirás un mensaje de confirmación por WhatsApp o correo electrónico con los detalles de tu pedido y los pasos a seguir según el método de pago seleccionado.</p>
+                    </div>
+                    <div id="success-buttons" class="flex flex-col gap-3">
+                        <button onclick="closeCheckoutModal()" class="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md cursor-pointer">
+                            Continuar Comprando
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN SOBRE NOSOTROS -->
+    <section id="nosotros-section" class="bg-white border-t border-gray-100 py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="relative h-[350px] md:h-[500px] rounded-2xl overflow-hidden shadow-md group">
+                <img id="nosotros-imagen-front" src="images/fondo_carissma.jpg" alt="Atmósfera Carissma" class="w-full h-full object-cover transition duration-700 group-hover:scale-103">
+                <div class="absolute inset-0 bg-orange-950/10 mix-blend-multiply"></div>
+            </div>
+            <div class="space-y-6">
+                <span id="nosotros-etiqueta-front" class="text-xs font-bold uppercase tracking-widest text-orange-600 block">Esencia & Alma</span>
+                <h2 id="nosotros-titulo-front" class="serif-font text-3xl md:text-4xl text-gray-900 font-bold leading-tight">Sobre Nosotros</h2>
+                <div class="w-16 h-0.5 bg-orange-500"></div>
+                <div id="nosotros-parrafo-front" class="text-gray-600 text-sm md:text-base leading-relaxed space-y-4">
+                    <p>En Carissma creemos que tu espacio debe contar una historia de calidez, belleza e intención. Somos un rincón dedicado al encuentro entre la artesanía honesta, hecha a mano con paciencia infinita, y la curaduría selecta de objetos que inspiran calma y distinción.</p>
+                    <p>Colaboramos estrechamente con talleres familiares y artesanos locales que transmiten saberes generación tras generación, fusionándolos con un diseño minimalista y atemporal. Cada pieza en nuestra tienda ha sido elegida una a una por su alma, textura y calidad insuperable. Queremos llevar a tu hogar elementos con propósito, que transformen los momentos más simples del día a día en instantes de profunda conexión y belleza.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN POLÍTICAS DE COMPRA -->
+    <section id="politicas-section" class="bg-gray-50 border-t border-gray-100 py-16 md:py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-orange-600">Transparencia</span>
+                <h2 class="serif-font text-3xl md:text-4xl text-gray-900 font-bold">Nuestras Políticas</h2>
+                <div class="w-16 h-0.5 bg-orange-500 mx-auto"></div>
+                <p class="text-gray-500 text-sm">Queremos que tu experiencia de compra sea tan cálida y transparente como nuestras piezas.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-xs hover:shadow-md transition duration-300 space-y-4">
+                    <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center"><img src="images/truck.svg" alt="Envíos" class="w-7 h-7"></div>
+                    <h3 class="serif-font text-xl font-bold text-gray-900">Envíos y Entregas</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Hacemos envíos rápidos y seguros a nivel nacional. Para todas las compras superiores a $50, el costo de envío es completamente gratuito.
+                    </p>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Por la naturaleza de los artículos **hechos a mano**, algunos productos pueden demorar de 2 a 4 días hábiles adicionales para su preparación en taller. Una vez despachado, recibirás un código de rastreo en tiempo real.
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-xs hover:shadow-md transition duration-300 space-y-4">
+                    <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center"><img src="images/shield.svg" alt="Garantía" class="w-7 h-7"></div>
+                    <h3 class="serif-font text-xl font-bold text-gray-900">Garantía de Devoluciones</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Si no estás 100% satisfecho con tu artículo curado o artesanal, dispones de hasta **14 días naturales** desde el momento de la entrega para solicitar una devolución completa.
+                    </p>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        El artículo debe devolverse en su embalaje original y sin signos de uso. Una vez recibido e inspeccionado, procesaremos tu reembolso de inmediato en el mismo método de pago original.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CONTACTO -->
+    <section id="contacto-section" class="bg-white border-t border-gray-100 py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold uppercase tracking-widest text-orange-600 block">Cercanía</span>
+                        <h2 class="serif-font text-3xl md:text-4xl text-gray-900 font-bold">Hablemos</h2>
+                        <div class="w-16 h-0.5 bg-orange-500"></div>
+                        <p class="text-gray-600 text-sm md:text-base leading-relaxed">
+                            ¿Tienes alguna pregunta sobre una de nuestras piezas hechas a mano, deseas una cotización especial o tienes dudas sobre tu envío? Estamos listos para atenderte con la calidez que nos define.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <img src="images/map-pin.svg" alt="Dirección" class="w-6 h-6 mt-0.5">
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-xs tracking-wider uppercase">Dirección</h4>
+                                <p class="text-gray-500 text-sm">San Fernando de Apure, Venezuela</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <img src="images/mail.svg" alt="Email" class="w-6 h-6 mt-0.5">
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-xs tracking-wider uppercase">Email</h4>
+                                <p class="text-gray-500 text-sm">nelsysnavas.music@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <img src="images/phone.svg" alt="Teléfono" class="w-6 h-6 mt-0.5">
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-xs tracking-wider uppercase">Teléfono</h4>
+                                <p class="text-gray-500 text-sm">+58 412-5274000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-7 bg-gray-50 p-6 md:p-10 rounded-3xl border border-gray-100 shadow-xs">
+                    <form id="contact-form" onsubmit="enviarContacto(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-1.5">
+                                <label for="name" class="text-xs font-bold text-gray-700 uppercase tracking-wider">Nombre Completo</label>
+                                <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="Ej. Ana Pérez">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label for="email" class="text-xs font-bold text-gray-700 uppercase tracking-wider">Correo Electrónico</label>
+                                <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition" placeholder="ana@ejemplo.com">
+                            </div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label for="message" class="text-xs font-bold text-gray-700 uppercase tracking-wider">Tu Mensaje</label>
+                            <textarea id="message" required rows="5" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-orange-500 bg-white text-sm transition resize-none" placeholder="Cuéntanos en qué podemos ayudarte..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full sm:w-auto bg-orange-600 hover:bg-orange-700 text-white px-8 py-3.5 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg cursor-pointer">
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-zinc-900 text-white py-10 border-t border-orange-500">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="flex flex-col items-center md:items-start">
+                <div class="flex items-center gap-2 mb-3">
+                    <img src="images/favicon.png" alt="Icono Carissma" class="w-8 h-8 rounded-full object-cover border border-white/20">
+                    <span class="serif-font text-xl font-bold text-orange-400">Carissma</span>
+                </div>
+                <p class="text-zinc-400 text-sm text-center md:text-left">
+                    Artesanía selecta y diseño curado para enriquecer tu hogar y tu estilo de vida cotidiano.
+                </p>
+            </div>
+            <div class="text-center">
+                <h4 class="font-semibold text-orange-400 mb-3 text-sm tracking-wider uppercase">Políticas</h4>
+                <ul class="text-zinc-400 text-sm space-y-2">
+                    <li><button onclick="smoothScrollToSection('#politicas-section')" class="hover:text-white transition cursor-pointer">Envíos y Entregas</button></li>
+                    <li><a href="terminos.html" class="hover:text-white transition cursor-pointer">Términos y Condiciones</a></li>
+                    <li><a href="privacidad.html" class="hover:text-white transition cursor-pointer">Política de Privacidad</a></li>
+                    <li><a href="devoluciones.html" class="hover:text-white transition cursor-pointer">Devoluciones</a></li>
+                    <li><button onclick="mostrarTerminosAfiliados()" class="hover:text-white transition cursor-pointer">Términos de Afiliados</button></li>
+                </ul>
+            </div>
+            <div class="text-center">
+                <h4 class="font-semibold text-orange-400 mb-3 text-sm tracking-wider uppercase">Proyectos</h4>
+                <ul class="text-zinc-400 text-sm space-y-2">
+                    <li><a href="https://nelsysnavas.github.io/historiasmusicales/" target="_blank" rel="noopener" class="hover:text-white transition">Historias Musicales</a></li>
+                    <li><a href="https://www.contabilidad-online.com/" target="_blank" rel="noopener" class="hover:text-white transition">Contabilidad Online</a></li>
+                    <li><a href="https://nelsysnavas.github.io/vocesdevenezuela/" target="_blank" rel="noopener" class="hover:text-white transition">Voces de Venezuela</a></li>
+                    <li><a href="https://nelsysnavas.github.io/unlatidoparaelias/" target="_blank" rel="noopener" class="hover:text-white transition">Un Latido para Elías</a></li>
+                </ul>
+            </div>
+            <div class="text-center md:text-right flex flex-col items-center md:items-end justify-center">
+                <div id="footer-social-links" class="flex gap-3 mb-3"></div>
+                <a href="dashboard.html" target="_blank" class="text-zinc-500 hover:text-orange-400 text-xs transition mb-2 inline-flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    Panel Admin
+                </a>
+                <p class="text-zinc-400 text-xs">Por <a href="https://beacons.ai/nelsysnavas" target="_blank" rel="noopener" class="text-orange-400 hover:text-orange-300 transition">Nelsys Navas</a></p>
+                <p class="text-zinc-500 text-xs mt-1">&copy; 2026 Carissma. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- LÓGICA DE PROGRAMACIÓN -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-service.js"></script>
+    <script src="js/affiliates-config.js"></script>
+    <script src="js/emailjs-config.js"></script>
+    <script src="js/emailjs-service.js"></script>
+    <script src="js/emailjs-contact.js"></script>
+    <script src="js/social-config.js"></script>
+    <script src="js/social-panel.js"></script>
+    <script src="js/nosotros-config.js"></script>
+    <script src="js/pagos-config.js"></script>
+    <script src="js/seo-config.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- MODAL DE TÉRMINOS DE AFILIADOS -->
+    <div id="affiliates-terms-modal" class="modal-container fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="modal-backdrop" onclick="cerrarTerminosAfiliados()"></div>
+        <div class="modal-card max-w-2xl">
+            <div class="modal-header">
+                <h3 class="font-bold text-gray-900 text-lg">Términos y Condiciones de Afiliados</h3>
+                <button onclick="cerrarTerminosAfiliados()" class="text-gray-400 hover:text-gray-600 p-1 hover:bg-gray-100 rounded-full cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="affiliates-terms-content" class="space-y-4 text-sm text-gray-700 leading-relaxed">
+                    <!-- Se llena dinámicamente -->
+                </div>
+                <div class="flex justify-end pt-4 mt-4 border-t border-gray-100">
+                    <button onclick="cerrarTerminosAfiliados()" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-md cursor-pointer">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a id="whatsapp-float-btn" href="#" target="_blank" rel="noopener" class="fixed bottom-6 left-6 z-50 w-14 h-14 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded-full shadow-2xl transition-all duration-300 hover:scale-110 cursor-pointer" aria-label="Contactar por WhatsApp" title="¿Hablamos por WhatsApp?">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+    </a>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    <button id="back-to-top" onclick="scrollToTop()" class="fixed bottom-6 right-6 bg-orange-600 hover:bg-orange-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none z-40 focus:outline-none hover:scale-105 active:scale-95 cursor-pointer" style="right: 1.5rem;" aria-label="Volver arriba">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    
+
+</body>
+</html>
