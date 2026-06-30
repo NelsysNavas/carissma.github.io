@@ -101,18 +101,20 @@
             return false;
         }
 
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                db.collection('usuarios').doc(user.uid).get().then(doc => {
-                    if (doc.exists && doc.data().activo !== false) {
-                        setCurrentUser(doc.data());
-                        setTimeout(() => {
-                            window.location.href = 'dashboard.html';
-                        }, 500);
-                    }
-                });
-            }
-        });
+        if (typeof auth !== 'undefined' && auth) {
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    db.collection('usuarios').doc(user.uid).get().then(doc => {
+                        if (doc.exists && doc.data().activo !== false) {
+                            setCurrentUser(doc.data());
+                            setTimeout(() => {
+                                window.location.href = 'dashboard.html';
+                            }, 500);
+                        }
+                    });
+                }
+            });
+        }
     </script>
 </body>
 </html>
