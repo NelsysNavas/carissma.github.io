@@ -33,6 +33,9 @@ function isSuperAdmin() {
 }
 
 async function loginWithEmail(email, password) {
+    if (!auth) {
+        return { success: false, error: 'Firebase Auth SDK no está cargado. Recarga la página.' };
+    }
     try {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
         const fbUser = userCredential.user;
@@ -62,6 +65,9 @@ async function loginWithEmail(email, password) {
 }
 
 async function registerUser(email, password, displayName, role = 'admin') {
+    if (!auth) {
+        return { success: false, error: 'Firebase Auth SDK no está cargado.' };
+    }
     try {
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
         const fbUser = userCredential.user;
@@ -87,15 +93,16 @@ async function registerUser(email, password, displayName, role = 'admin') {
 }
 
 async function logout() {
-    try {
-        await auth.signOut();
-    } catch (e) {}
+    if (auth && auth.currentUser) {
+        try { await auth.signOut(); } catch (e) {}
+    }
     setCurrentUser(null);
     localStorage.removeItem('carissma_current_user');
     window.location.href = 'login.html';
 }
 
 function protegerDashboard() {
+    if (!auth) return;
     auth.onAuthStateChanged((user) => {
         if (user) {
             db.collection('usuarios').doc(user.uid).get().then(doc => {

@@ -31,7 +31,16 @@ function initializeFirebase() {
         const config = getFirebaseConfig();
         firebaseApp = firebase.initializeApp(config);
         db = firebase.firestore();
-        auth = firebase.auth();
+        if (typeof firebase.auth === 'function') {
+            try {
+                auth = firebase.auth();
+            } catch (e) {
+                console.warn('Firebase Auth SDK no cargado');
+                auth = null;
+            }
+        } else {
+            auth = null;
+        }
         console.log('Firebase inicializado correctamente');
         return true;
     } catch (error) {
