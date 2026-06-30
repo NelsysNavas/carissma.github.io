@@ -1,0 +1,99 @@
+/* ============================================
+   CARISSMA - admin.css
+   Estilos custom del panel admin
+   Complementa a Tailwind (sidebar, nav, tablas)
+   ============================================ */
+
+/* Sidebar transitions */
+.sidebar {
+    transition: width 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar.collapsed {
+    width: 70px;
+}
+
+.sidebar.collapsed .sidebar-text {
+    display: none;
+}
+
+.sidebar.collapsed .logo-text {
+    display: none;
+}
+
+.sidebar.collapsed .nav-item {
+    justify-content: center;
+}
+
+.sidebar.collapsed .nav-item span {
+    display: none;
+}
+
+/* Nav item activo */
+.nav-item.active {
+    background-color: #ea580c;
+    color: white;
+}
+
+.nav-item:hover:not(.active) {
+    background-color: #fff7ed;
+}
+
+/* Stat cards hover */
+.stat-card {
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+}
+
+/* Table rows hover */
+.table-row:hover {
+    background-color: #fafaf9;
+}
+
+/* Scrollbar custom */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d4d4d8;
+    border-radius: 3px;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background-color: #3f3f46;
+    border-radius: 9999px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+}
+.toggle-switch.active {
+    background-color: #ea580c;
+}
+.toggle-knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle-switch.active .toggle-knob {
+    transform: translateX(20px);
+}
