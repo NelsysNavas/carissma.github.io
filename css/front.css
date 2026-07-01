@@ -1,0 +1,75 @@
+/* ============================================
+   CARISSMA - front.css
+   Estilos custom del front-end
+   Complementa a Tailwind (modales, checkout, animaciones)
+   ============================================ */
+
+/* Modal transitions */
+.modal-container {
+    transition: opacity 0.35s ease-out, visibility 0.35s ease-out;
+}
+
+.modal-container:not(.modal-open) {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.modal-container.modal-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.modal-backdrop {
+    transition: opacity 0.35s ease-out;
+}
+
+.modal-card {
+    transition: transform 0.35s ease-out, opacity 0.35s ease-out;
+    transform: scale(0.92);
+    opacity: 0;
+}
+
+.modal-open .modal-card {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Payment options */
+.payment-option {
+    transition: all 0.2s ease;
+}
+
+.payment-option.selected {
+    border-color: #ea580c;
+    background-color: #fff7ed;
+}
+
+.payment-option:hover {
+    border-color: #fdba74;
+}
+
+/* Step indicators */
+.step-indicator {
+    transition: all 0.3s ease;
+}
+
+.step-indicator.active {
+    background-color: #ea580c;
+    color: white;
+}
+
+.step-indicator.completed {
+    background-color: #16a34a;
+    color: white;
+}
+
+/* Checkout steps */
+.checkout-step {
+    display: none;
+}
+
+.checkout-step.active {
+    display: block;
+}
