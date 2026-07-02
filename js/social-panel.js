@@ -125,12 +125,11 @@ function mostrarMensajeSocial(tipo, mensaje) {
 function actualizarBotonesSociales() {
     const config = getSocialConfig();
     const waBtn = document.getElementById('whatsapp-float-btn');
-    const waLink = document.getElementById('whatsapp-float-link');
-    if (waBtn && waLink) {
+    if (waBtn) {
         if (config.whatsapp.activo && config.whatsapp.numero) {
             const numero = config.whatsapp.numero.replace(/[^0-9]/g, '');
             const mensaje = encodeURIComponent(config.whatsapp.mensaje || '¡Hola! Me interesa conocer más sobre sus productos de Carissma.');
-            waLink.href = `https://wa.me/${numero}?text=${mensaje}`;
+            waBtn.href = `https://wa.me/${numero}?text=${mensaje}`;
             waBtn.classList.remove('hidden');
         } else {
             waBtn.classList.add('hidden');
